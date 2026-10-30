@@ -14,7 +14,7 @@ const CDN = "https://cdn.shopify.com/s/files/1/";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "eufy | Smart Home Security & Cleaning Devices" },
+      { title: "iHOMEY | Smart Home Security & Cleaning Devices" },
       { name: "description", content: "Security cameras, robot vacuums, smart locks and baby tech from eufy." },
       { property: "og:title", content: "eufy | Smart Home Security & Cleaning" },
       { property: "og:description", content: "Security cameras, robot vacuums, smart locks and baby tech from eufy." },
