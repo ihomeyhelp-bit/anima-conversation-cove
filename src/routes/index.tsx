@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { categorySlug } from "@/lib/categories";
+import { productSlug } from "@/lib/products";
+import { Button } from "@/components/ui/button";
 import { StoreHeader } from "@/components/store-header";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -113,8 +115,8 @@ function Index() {
             <h3 className="text-3xl font-bold">{item.t}</h3>
             <p className="mt-3 text-lg">{item.s}</p>
             <div className="mt-8 flex gap-3">
-              <a href="#" className="rounded-full border border-foreground px-6 py-2.5 font-semibold">Learn More</a>
-              <a href="#" className="rounded-full bg-primary px-6 py-2.5 font-semibold text-primary-foreground">{item.cta}</a>
+              <Button asChild variant="outline" className="rounded-full border-foreground"><Link to="/products/$product" params={{product:productSlug(item.t)}}>Learn More</Link></Button>
+              <Button asChild className="rounded-full"><Link to="/products/$product" params={{product:productSlug(item.t)}}>{item.cta}</Link></Button>
             </div>
           </div>
           <button aria-label="Previous" onClick={() => setC((c - 1 + care.length) % care.length)} className="absolute left-4 top-1/2 rounded-full bg-background/80 p-2"><ChevronLeft /></button>
@@ -176,8 +178,8 @@ function Index() {
                 {p.saved && <span className="text-sm text-destructive">{p.saved}</span>}
               </div>
               <div className="mt-5 flex gap-3">
-                <a href="#" className="flex-1 rounded-full border border-foreground py-2 text-center text-sm font-semibold">Learn More</a>
-                <a href="#" className="flex-1 rounded-full bg-primary py-2 text-center text-sm font-semibold text-primary-foreground">Shop Now</a>
+                <Button asChild variant="outline" className="flex-1 rounded-full border-foreground"><Link to="/products/$product" params={{product:productSlug(p.t)}}>Learn More</Link></Button>
+                <Button asChild className="flex-1 rounded-full"><Link to="/products/$product" params={{product:productSlug(p.t)}}>Shop Now</Link></Button>
               </div>
             </div>
           ))}

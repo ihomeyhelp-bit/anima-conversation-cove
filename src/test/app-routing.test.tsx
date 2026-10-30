@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import { routeTree } from "@/routeTree.gen";
 import { categories, getCategory, categorySlug } from "@/lib/categories";
+import { products, getProduct, effectivePrice } from "@/lib/products";
 
 // Match routes without running loaders or rendering: loaders may need a server or
 // network the test run lacks, and jsdom never loads the stylesheets React waits on.
@@ -22,5 +23,17 @@ describe("App routing", () => {
   });
   it("does not resolve an unknown category", () => {
     expect(getCategory("not-a-category")).toBeUndefined();
+  });
+  it.each(products)("matches the $name product page", (product) => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+    expect(router.matchRoutes(`/products/${product.slug}`).at(-1)?.routeId).toBe("/products/$product");
+    expect(getProduct(product.slug)?.name).toBe(product.name);
+  });
+  it("uses the reference S3 Max price and coupon", () => {
+    const product = getProduct("eufy-familock-s3-max");
+    expect(product).toBeDefined();
+    if (!product) throw new Error("Missing product");
+    expect(effectivePrice(product, false)).toBe(399.99);
+    expect(effectivePrice(product, true)).toBeCloseTo(299.99, 2);
   });
 });
