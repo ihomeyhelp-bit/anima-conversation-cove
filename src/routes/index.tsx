@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { StoreHeader } from "@/components/store-header";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import livingRoomSmall from "@/assets/home/living-room-768.webp.asset.json";
+import livingRoomMedium from "@/assets/home/living-room-1280.webp.asset.json";
+import livingRoomLarge from "@/assets/home/living-room-1920.webp.asset.json";
 
 const CDN = "https://cdn.shopify.com/s/files/1/";
 
@@ -30,7 +33,7 @@ const heroes = [
 ];
 
 const care = [
-  { img: CDN + "0504/7094/4954/files/1664_640_4_-1_3840x.png?v=1793184397", t: "Anker eufy Robot Vacuum Omni E35", s: "35000 Pa | Baby-Grade Cleaning. Carefree Crawling.", cta: "Save $300 Now" },
+  { img: livingRoomLarge.url, srcSet: `${livingRoomSmall.url} 768w, ${livingRoomMedium.url} 1280w, ${livingRoomLarge.url} 1920w`, alt: "Salon ensoleillé avec aspirateur robot iHomey et sa station", t: "Anker eufy Robot Vacuum Omni E35", s: "35000 Pa | Baby-Grade Cleaning. Carefree Crawling.", cta: "Save $300 Now" },
   { img: CDN + "0504/7094/4954/files/20261019-165156_3840x.png?v=1792400919", t: "eufy Wearable Breast Pump S1 Pro", s: "30% More Output with 300 mmHg Strong Suction", cta: "Save $90 Now" },
   { img: CDN + "0504/7094/4954/files/824_640-12_3840x.png?v=1793157664", t: "eufy Video Doorbell S4", s: "The World's First VR Doorbell with Immersive AI Tracking", cta: "Shop Now" },
   { img: CDN + "0504/7094/4954/files/T8172_1648_480_1_3840x.png?v=1788272062", t: "eufyCam S4", s: "The Perfect Harmony of Bullet and PTZ Cameras", cta: "Save $400 Now" },
@@ -110,11 +113,11 @@ function Index() {
 
       <Section title="Built with Care">
         <div className="relative overflow-hidden rounded-2xl">
-          <img src={item.img} alt={item.t} className="h-[520px] w-full object-cover" />
-          <div className="absolute left-12 top-12 max-w-md">
-            <h3 className="text-3xl font-bold">{item.t}</h3>
-            <p className="mt-3 text-lg">{item.s}</p>
-            <div className="mt-8 flex gap-3">
+          <img src={item.img} srcSet={item.srcSet} sizes="(min-width: 1664px) 1584px, calc(100vw - 80px)" alt={item.alt ?? item.t} width={1920} height={739} loading="lazy" decoding="async" className="h-[520px] w-full object-cover object-center" />
+          <div className="absolute left-5 right-5 top-8 max-w-md md:left-12 md:right-auto md:top-12">
+            <h3 className="text-2xl font-bold md:text-3xl">{item.t}</h3>
+            <p className="mt-3 text-base md:text-lg">{item.s}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="outline" className="rounded-full border-foreground"><Link to="/products/$product" params={{product:productSlug(item.t)}}>Learn More</Link></Button>
               <Button asChild className="rounded-full"><Link to="/products/$product" params={{product:productSlug(item.t)}}>{item.cta}</Link></Button>
             </div>
