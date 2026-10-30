@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { categorySlug } from "@/lib/categories";
 import { StoreHeader } from "@/components/store-header";
 import { useEffect, useState } from "react";
-import { Search, Video, User, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const CDN = "https://cdn.shopify.com/s/files/1/";
 
@@ -74,8 +74,6 @@ const products = [
   { img: CDN + "0504/7094/4954/files/E15_78053c62-b8cf-4de7-859c-021f244ffd6a_3840x.png?v=1788431014", tag: "$700 OFF", t: "eufy Robot Lawn Mower E15", s: "0.2 acres max mapping area, for flat lawns", p: "$1,099.99", saved: "Saved $700.00" },
   { img: CDN + "0504/7094/4954/files/1-T600P_S2___1500x1500_abbef2f6-7c43-497f-8e19-42d01e6183ba.png?v=1788418942", tag: "HSA/FSA", t: "eufy Wearable Breast Pump S2 Pro", s: "35% More Output, 30% Less Time", p: "$449.99", saved: "" },
 ];
-
-const nav = ["Security", "Clean", "Mom & Baby", "New Home", "eufyMake", "Security Solution"];
 
 function Index() {
   const [h, setH] = useState(0);
