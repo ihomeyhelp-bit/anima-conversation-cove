@@ -11,3 +11,4 @@
 
 - Category pages use one dynamic TanStack route and a shared data-driven layout so every category preserves the same reference design without duplicated pages.
 - Store navigation is shared between the homepage and category pages so category destinations remain consistent.
+- Product pages use a shared dynamic route and catalogue derived from category products so links, galleries, and details resolve consistently; purchases hand off explicitly to the official store until commerce is connected.
