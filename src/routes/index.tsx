@@ -15,9 +15,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "iHOMEY | Smart Home Security & Cleaning Devices" },
-      { name: "description", content: "Security cameras, robot vacuums, smart locks and baby tech from eufy." },
-      { property: "og:title", content: "eufy | Smart Home Security & Cleaning" },
-      { property: "og:description", content: "Security cameras, robot vacuums, smart locks and baby tech from eufy." },
+      { name: "description", content: "Security cameras, robot vacuums, smart locks and baby tech from iHOMEY." },
+      { property: "og:title", content: "iHOMEY | Smart Home Security & Cleaning" },
+      { property: "og:description", content: "Security cameras, robot vacuums, smart locks and baby tech from iHOMEY." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:image", content: CDN + "0521/9411/5753/files/1920_720_2_3840x.png?v=1790042462" },
