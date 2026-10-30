@@ -11,4 +11,5 @@
 - [x] Restore available original photographs, verbatim content, offers and complete sections for the referenced FamiLock S3 Max page.
 - [x] Verify original layout and gallery; preserve honest purchase handoff.
 - [ ] Recover missing source media: four creator/how-to images have no source address and one recommended doorbell image returns 404 in the supplied original.
-- [ ] Reproduce other models verbatim: their own original product-page references are needed; the supplied reference describes FamiLock S3 Max only.
+- [ ] Apply the original product design and structure to every catalogue product using each product's own data.
+- [ ] Verify multiple product pages, gallery and purchase handoff on desktop and mobile.
