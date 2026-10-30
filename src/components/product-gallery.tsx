@@ -1,0 +1,12 @@
+import { useState } from "react";
+import { ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import type { Product } from "@/lib/products";
+export function ProductGallery({product}:{product:Product}) {
+ const [mode,setMode]=useState("Products");const [index,setIndex]=useState(0);const [zoom,setZoom]=useState(false);
+ const images=mode==="Scene" ? product.scenes : product.gallery;
+ const current=images[index] ?? images[0] ?? product.image;
+ const move=(n:number)=>setIndex((index+n+images.length)%images.length);
+ return <div className="lg:sticky lg:top-28 lg:self-start"><div className="relative flex aspect-square items-center justify-center bg-muted"><img src={current} alt={`${product.name} — ${mode} ${index+1}`} className={`h-full w-full ${mode==="Scene" ? "object-contain" : "object-contain p-10 md:p-16"}`} fetchPriority="high" /><span className="absolute right-5 top-5 rounded-sm bg-muted-foreground px-2 py-1 text-xs text-primary-foreground">{index+1}/{images.length}</span>{images.length>1 && <><Button variant="secondary" size="icon" aria-label="Previous image" onClick={()=>move(-1)} className="absolute left-4 top-1/2 rounded-full"><ChevronLeft /></Button><Button variant="secondary" size="icon" aria-label="Next image" onClick={()=>move(1)} className="absolute right-4 top-1/2 rounded-full"><ChevronRight /></Button></>}<Button variant="ghost" size="icon" aria-label="Enlarge image" onClick={()=>setZoom(true)} className="absolute bottom-4 right-4"><ZoomIn /></Button></div><div className="flex justify-center gap-2 border-b py-3">{["Products",...(product.scenes.length ? ["Scene"] : [])].map(m=><Button key={m} variant={mode===m ? "secondary" : "ghost"} onClick={()=>{setMode(m);setIndex(0);}}>{m}</Button>)}</div><div className="flex gap-3 overflow-x-auto p-4">{images.map((src,i)=><Button key={src} variant="outline" aria-label={`View image ${i+1}`} onClick={()=>setIndex(i)} className={`h-16 w-16 shrink-0 p-1 ${index===i ? "border-brand" : ""}`}><img src={src} alt="" className="h-full w-full object-contain" /></Button>)}</div><Dialog open={zoom} onOpenChange={setZoom}><DialogContent className="max-w-3xl"><DialogTitle>{product.name}</DialogTitle><DialogDescription>{mode} · {index+1}/{images.length}</DialogDescription><img src={current} alt={product.name} className="max-h-[70vh] w-full object-contain" /></DialogContent></Dialog></div>;
+}
