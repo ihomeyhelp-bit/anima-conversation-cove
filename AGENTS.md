@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Category pages use one dynamic TanStack route and a shared data-driven layout so every category preserves the same reference design without duplicated pages.
+- Store navigation is shared between the homepage and category pages so category destinations remain consistent.
