@@ -83,8 +83,8 @@ function Index() {
     const id = setInterval(() => setH((x) => (x + 1) % heroes.length), 6000);
     return () => clearInterval(id);
   }, []);
-  const hero = heroes[h];
-  const item = care[c];
+  const hero = heroes[h] ?? heroes[0]!;
+  const item = care[c] ?? care[0]!;
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
