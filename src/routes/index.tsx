@@ -8,6 +8,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import livingRoomSmall from "@/assets/home/living-room-768.webp.asset.json";
 import livingRoomMedium from "@/assets/home/living-room-1280.webp.asset.json";
 import livingRoomLarge from "@/assets/home/living-room-1920.webp.asset.json"; import logoLightAsset from "@/assets/brand/ihomey-logo-light.png.asset.json";
+import solarCamAsset from "@/assets/home/solar-security-camera-garden.webp.asset.json";
 
 const CDN = "https://cdn.shopify.com/s/files/1/";
 
@@ -63,7 +64,7 @@ const systems = [
 
 const series = [
   { img: CDN + "0504/7094/4954/files/PC-2x_3840x.png?v=1789469117", t: "S Series", s: "Ultimate Imaging, Full Control" },
-  { img: CDN + "0553/4492/2789/files/3b663fc4-d056-431a-9553-176205f8e80c_image-3_3840x.jpg?v=1759143145", t: "E Series", s: "Reliable Security, Always On" },
+  { img: solarCamAsset.url, t: "E Series", s: "Reliable Security, Always On" },
   { img: CDN + "0504/7094/4954/files/T814XS_1088_1280_3840x.png?v=1787569578", t: "C Series", s: "Auto Tracking, Indoors or Outdoors" },
 ];
 
