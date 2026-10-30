@@ -18,7 +18,7 @@ const entries = [...categories.filter(c=>c.slug!=="smart-locks").map(c=>({...c.p
 export const products: Product[] = entries.map(p=> {
  const isMax=p.name==="eufy FamiLock S3 Max";
  const cat=categories.find(c=>c.slug===p.category);
- return {...p,slug:productSlug(p.name),gallery:isMax ? [palm.url,front.url] : [p.image], scenes:isMax ? [scene.url,security.url,hands.url,battery.url] : cat?.photo ? [cat.hero] : [],
+ return {...p,slug:productSlug(p.name),gallery:isMax ? [front.url,palm.url] : [p.image], scenes:isMax ? [scene.url,security.url,hands.url,battery.url] : cat?.photo ? [cat.hero] : [],
  details:isMax ? ["Palm Vein Unlocking: Unlock with advanced security and ultra-fast recognition in just 0.6 seconds. All data is securely stored locally on the lock.","This all-in-one device: A 2K HD night-vision camera, a 150° wide-angle video doorbell and a smart lock with real-time alerts.","The Rear Lock Video Screen: Check the front door without an app, with a simple design for seniors and children.","Dual Power Supply System: Two batteries provide up to 5 months of usage, plus 4 AAA backup batteries."] : [p.description],
  specs:isMax ? [["Unlock Methods","Palm Vein, App, Voice Control, Password, Keys"],["Camera Resolution","2K HDR"],["Display","4-Inch Display"],["Battery Type","15,000mAh + 4 AAA"],["Battery Life","5 Months"],["Waterproof","IP65"],["Connectivity","Built-In Wi-Fi"]] : [["Product",p.name],["Category",cat?.name ?? ""],["Series",p.series]],
  ...(isMax ? {price:"$399.99",coupon:{code:"WS24E85V0JY1",amount:100}} : {}),
