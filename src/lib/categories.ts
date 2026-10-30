@@ -104,7 +104,7 @@ const featureSets: Record<string, string[]> = {
 export const categories: Category[] = definitions.map(([slug = "", name = "", title = "", subtitle = "", hero = "", price = ""]) => ({
  slug, name, title, subtitle, hero: image(hero || slug), photo: Boolean(hero),
  features: featureSets[slug] ?? ["Designed for Your Home", "Everyday Convenience", "Connected Living", "Made with Care"],
- product: {name: title, image: image(slug === "smart-locks" ? "613" : slug), description: subtitle, price: price || undefined, series: "Featured"},
+ product: {name: title, image: image(slug === "smart-locks" ? "613" : slug), description: subtitle, ...(price ? {price} : {}), series: "Featured"},
 }));
 export const lockProducts: CategoryProduct[] = [
  { name: "eufy FamiLock S3 Max", image: image("613"), description: "Palm vein unlocking, 2K HDR camera and 4-inch display.", price: "$299.99", saved: "$100.00", series: "S Series", url: "https://www.eufy.com/products/e85v0jy1" },
