@@ -1,6 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { categorySlug } from "@/lib/categories";
+import { StoreHeader } from "@/components/store-header";
 import { useEffect, useState } from "react";
-import { Search, Video, User, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const CDN = "https://cdn.shopify.com/s/files/1/";
 
@@ -73,8 +75,6 @@ const products = [
   { img: CDN + "0504/7094/4954/files/1-T600P_S2___1500x1500_abbef2f6-7c43-497f-8e19-42d01e6183ba.png?v=1788418942", tag: "HSA/FSA", t: "eufy Wearable Breast Pump S2 Pro", s: "35% More Output, 30% Less Time", p: "$449.99", saved: "" },
 ];
 
-const nav = ["Security", "Clean", "Mom & Baby", "New Home", "eufyMake", "Security Solution"];
-
 function Index() {
   const [h, setH] = useState(0);
   const [c, setC] = useState(0);
@@ -83,41 +83,13 @@ function Index() {
     const id = setInterval(() => setH((x) => (x + 1) % heroes.length), 6000);
     return () => clearInterval(id);
   }, []);
-  const hero = heroes[h] ?? heroes[0]!;
-  const item = care[c] ?? care[0]!;
+  const hero = heroes[h] ?? heroes[0];
+  const item = care[c] ?? care[0];
+  if (!hero || !item) return null;
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
-      <div className="bg-topbar text-topbar-foreground">
-        <div className="mx-auto flex max-w-[1664px] justify-between px-10 py-1.5 text-xs">
-          <div className="flex gap-4">
-            {["Anker Charging", "Anker SOLIX", "Anker eufy", "Anker eufyMake", "Anker soundcore"].map((b) => (
-              <a key={b} href="#" className="hover:opacity-100 opacity-70">{b}</a>
-            ))}
-          </div>
-          <a href="#" className="opacity-70 hover:opacity-100">Anker Innovations</a>
-        </div>
-      </div>
-      <div className="bg-promo py-3 text-center text-sm text-promo-foreground">
-        New Omni C30 Edge: strongest suction ever. <b>$300 off</b>{" "}
-        <a href="#" className="underline">Exclusive early-bird sale&gt;&gt;</a>
-      </div>
-
-      <header className="sticky top-0 z-30 border-b bg-background">
-        <div className="mx-auto max-w-[1920px] px-10">
-          <div className="flex items-center justify-between py-3">
-            <a href="/" className="text-xl font-bold tracking-[0.15em]">ANKER <span className="font-medium tracking-normal">eufy</span></a>
-            <div className="flex gap-6">{[Search, Video, User, ShoppingBag].map((I, i) => <I key={i} className="h-5 w-5" />)}</div>
-          </div>
-          <nav className="flex justify-between pb-3 text-[15px]">
-            <div className="flex gap-8">
-              {nav.map((n) => <a key={n} href="#" className="hover:text-brand">{n}</a>)}
-              <a href="#" className="flex items-center gap-1">Halloween Sale <span className="rounded-sm bg-destructive px-1 text-[10px] text-destructive-foreground">Hot</span></a>
-            </div>
-            <div className="flex gap-8">{["Business", "Support", "Explore"].map((n) => <a key={n} href="#">{n}</a>)}</div>
-          </nav>
-        </div>
-      </header>
+      <StoreHeader />
 
       <section className="relative h-[680px] overflow-hidden">
         <img src={hero.img} alt={hero.title} className="absolute inset-0 h-full w-full object-cover" />
@@ -156,10 +128,10 @@ function Index() {
       <Section title="Explore Top Choices by Category">
         <div className="grid grid-cols-3 gap-4 md:grid-cols-6">
           {cats.map(([n, src]) => (
-            <a key={n} href="#" className="group rounded-2xl bg-muted p-4 text-center">
+            <Link key={n} to="/category/$category" params={{category: categorySlug(n)}} className="group rounded-2xl bg-muted p-4 text-center">
               <img src={CDN + src} alt={n} className="mx-auto aspect-square w-full object-contain transition-transform group-hover:scale-105" />
               <p className="mt-2 text-sm font-semibold">{n}</p>
-            </a>
+            </Link>
           ))}
         </div>
       </Section>
