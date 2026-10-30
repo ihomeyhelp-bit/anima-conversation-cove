@@ -1,5 +1,4 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { ProductPage } from "@/components/product-page";
 import { getProduct } from "@/lib/products";
 import { OriginalProductPage } from "@/components/original-product-page";
 export const Route = createFileRoute("/products/$product")({
@@ -7,4 +6,4 @@ export const Route = createFileRoute("/products/$product")({
  head: ({loaderData})=> {const title=loaderData ? `${loaderData.name} | eufy` : "Product unavailable | eufy";const description=loaderData?.description ?? "Discover eufy smart home products.";return {meta:[{title},{name:"description",content:description},{property:"og:title",content:title},{property:"og:description",content:description},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]};},
  component: ProductRoute,
 });
-function ProductRoute(){const product=Route.useLoaderData();return product.slug === "eufy-familock-s3-max" ? <OriginalProductPage product={product} /> : <ProductPage key={product.slug} product={product} />;}
+function ProductRoute(){const product=Route.useLoaderData();return <OriginalProductPage key={product.slug} product={product} />;}
