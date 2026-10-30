@@ -7,17 +7,17 @@ import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import livingRoomSmall from "@/assets/home/living-room-768.webp.asset.json";
 import livingRoomMedium from "@/assets/home/living-room-1280.webp.asset.json";
-import livingRoomLarge from "@/assets/home/living-room-1920.webp.asset.json";
+import livingRoomLarge from "@/assets/home/living-room-1920.webp.asset.json"; import logoLightAsset from "@/assets/brand/ihomey-logo-light.png.asset.json";
 
 const CDN = "https://cdn.shopify.com/s/files/1/";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "eufy | Smart Home Security & Cleaning Devices" },
-      { name: "description", content: "Security cameras, robot vacuums, smart locks and baby tech from eufy." },
-      { property: "og:title", content: "eufy | Smart Home Security & Cleaning" },
-      { property: "og:description", content: "Security cameras, robot vacuums, smart locks and baby tech from eufy." },
+      { title: "iHOMEY | Smart Home Security & Cleaning Devices" },
+      { name: "description", content: "Security cameras, robot vacuums, smart locks and baby tech from iHOMEY." },
+      { property: "og:title", content: "iHOMEY | Smart Home Security & Cleaning" },
+      { property: "og:description", content: "Security cameras, robot vacuums, smart locks and baby tech from iHOMEY." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:image", content: CDN + "0521/9411/5753/files/1920_720_2_3840x.png?v=1790042462" },
@@ -190,12 +190,12 @@ function Index() {
       </Section>
 
       <footer className="mt-20 bg-topbar text-topbar-foreground">
-        <div className="mx-auto grid max-w-[1664px] gap-10 px-10 py-16 md:grid-cols-5">
+        <div className="mx-auto max-w-[1664px] px-10 pt-14 pb-2"><img src={logoLightAsset.url} alt="iHOMEY" width={700} height={300} className="h-9 w-auto md:h-10" /></div><div className="mx-auto grid max-w-[1664px] gap-10 px-10 pb-16 pt-8 md:grid-cols-5">
           {[
             ["Products", ["Security", "Clean", "Mom & Baby", "Smart Lights"]],
             ["Support", ["Help Center", "Warranty", "Track Order", "Returns"]],
             ["Explore", ["Blog", "Privacy Commitment", "Business", "Affiliates"]],
-            ["About", ["About eufy", "Careers", "Press", "Contact"]],
+            ["About", ["About iHOMEY", "Careers", "Press", "Contact"]],
           ].map(([h, l]) => (
             <div key={h as string}>
               <h4 className="mb-4 font-semibold">{h as string}</h4>
@@ -203,14 +203,14 @@ function Index() {
             </div>
           ))}
           <div>
-            <h4 className="mb-4 font-semibold">Join the eufy community</h4>
+            <h4 className="mb-4 font-semibold">Join the iHOMEY community</h4>
             <div className="flex overflow-hidden rounded-full bg-background">
               <input placeholder="Email address" className="flex-1 bg-transparent px-4 py-2 text-sm text-foreground outline-none" />
               <button className="bg-primary px-4 text-sm text-primary-foreground">Sign Up</button>
             </div>
           </div>
         </div>
-        <p className="border-t border-topbar-foreground/10 py-6 text-center text-xs opacity-60">© 2026 eufy. All Rights Reserved.</p>
+        <p className="border-t border-topbar-foreground/10 py-6 text-center text-xs opacity-60">© 2026 iHOMEY. All Rights Reserved.</p>
       </footer>
     </div>
   );

@@ -5,8 +5,8 @@ import { getCategory } from "@/lib/categories";
 export const Route = createFileRoute("/category/$category")({
  loader: ({ params }) => { const category = getCategory(params.category); if (!category) throw notFound(); return category; },
  head: ({ loaderData }) => {
-  const title = loaderData ? `${loaderData.name} | eufy` : "Category unavailable | eufy";
-  const description = loaderData ? `Discover ${loaderData.name.toLowerCase()} from eufy. ${loaderData.subtitle}.` : "Explore eufy smart home products.";
+  const title = loaderData ? `${loaderData.name} | iHOMEY` : "Category unavailable | iHOMEY";
+  const description = loaderData ? `Discover ${loaderData.name.toLowerCase()} from iHOMEY. ${loaderData.subtitle}.` : "Explore iHOMEY smart home products.";
   return { meta: [{title},{name:"description",content:description},{property:"og:title",content:title},{property:"og:description",content:description},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}] };
  },
  component: CategoryRoute,

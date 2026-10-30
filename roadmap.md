@@ -2,6 +2,10 @@
 - [x] Recreate the supplied category-page layout for every homepage category.
 - [x] Connect category links and verify navigation, images, and small-screen layout.
 
+# Brand
+- [x] Place the supplied iHOMEY logo in the header, both footers and the browser tab icon across every page.
+- [ ] Confirm whether "eufy" should also be replaced inside the verbatim FamiLock S3 Max source text and product names.
+
 # Product pages
 - [x] Adapt the supplied product-page design for every listed product.
 - [x] Connect product links on category and homepage cards.
