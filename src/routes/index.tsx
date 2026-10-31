@@ -47,14 +47,14 @@ const care = [
   { img: CDN + "0504/7094/4954/files/omnis2bann_v2_1648_1280_3840x.jpg?v=1791283224", t: "eufy Robot Vacuum Omni S2", s: "Deep Cleaning, Healthy Home.", cta: "Buy Now" },
 ];
 
-const cats: [string, string][] = [
-  ["Outdoor Cameras", babyMonitorAsset.url],
+const cats: [string, string, string?][] = [
+  ["Outdoor Cameras", outdoorCameraAsset.url],
   ["Robot Vacuums", "0504/7094/4954/files/Frame_2121236208_4c45a479-2f7e-4818-bae2-8be5b96ef10b_3840x.png?v=1784704932"],
   ["Smart Locks", smartLockAsset.url],
   ["Breast Pumps", "0504/7094/4954/files/1-T600P_S2___1500x1500_7a53c066-e520-4cca-827f-67174007a17e.png?v=1790061158"],
   ["Video Doorbells", videoDoorbellAsset.url],
   ["Indoor Cameras", "0557/0933/5761/files/ce554e73-26d0-40fc-8178-becdedb0bca6_Y1811-c_a_a_1_2-1_3840x.png?v=1750150793"],
-  ["Baby Monitors", babyMonitorAsset.url],
+  ["Baby Monitors", babyMonitorAsset.url, "Outdoor Cameras"],
 ];
 
 const systems = [
@@ -151,8 +151,8 @@ function Index() {
       <Section title="Explore Top Choices by Category">
         <div className="relative">
           <div ref={catRef} onScroll={updateCatArrows} className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {cats.map(([n, src]) => (
-              <Link key={n} to="/category/$category" params={{category: categorySlug(n)}} className="group w-[38%] shrink-0 snap-start rounded-2xl bg-muted p-4 text-center sm:w-[29%] md:w-[21.5%] lg:w-[15.5%]">
+            {cats.map(([n, src, target]) => (
+              <Link key={n} to="/category/$category" params={{category: categorySlug(target ?? n)}} className="group w-[38%] shrink-0 snap-start rounded-2xl bg-muted p-4 text-center sm:w-[29%] md:w-[21.5%] lg:w-[15.5%]">
                 <img src={src.startsWith("/") ? src : CDN + src} alt={n} className="mx-auto aspect-square w-full object-contain transition-transform group-hover:scale-105" />
                 <p className="mt-2 text-sm font-semibold">{n}</p>
               </Link>
