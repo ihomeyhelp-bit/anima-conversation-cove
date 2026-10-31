@@ -11,6 +11,8 @@ import livingRoomLarge from "@/assets/home/living-room-1920.webp.asset.json"; im
 import solarCamAsset from "@/assets/home/e-series-camera.webp.asset.json";
 import cSeriesCameraAsset from "@/assets/home/indoor-security-camera.webp.asset.json";
 import sSeriesCameraAsset from "@/assets/home/s-series-camera.webp.asset.json";
+import smartLockAsset from "@/assets/home/smart-lock-keypad.webp.asset.json";
+import outdoorCameraAsset from "@/assets/home/outdoor-camera.webp.asset.json";
 
 const CDN = "https://cdn.shopify.com/s/files/1/";
 
