@@ -49,12 +49,8 @@ const cats: [string, string][] = [
   ["Robot Vacuums", "0504/7094/4954/files/Frame_2121236208_4c45a479-2f7e-4818-bae2-8be5b96ef10b_3840x.png?v=1784704932"],
   ["Smart Locks", "0557/0933/5761/files/26a89adc-37bf-4ffb-af99-5d2f9685f678_A80E7011_TD01_V1_2_3_3840x.png?v=1750150869"],
   ["Breast Pumps", "0504/7094/4954/files/1-T600P_S2___1500x1500_7a53c066-e520-4cca-827f-67174007a17e.png?v=1790061158"],
-  ["Smart Lights", "0557/0933/5761/files/d6823429-a960-4780-89d1-1db671a3a9fe_image_1_-2_3840x.png?v=1750151043"],
-  ["Lawn Mowers", "0521/9411/5753/files/5f929d8c-6289-4a50-a847-b34ecd7ad0b1_icone_e_3_3840x.png?v=1750370507"],
   ["Video Doorbells", "0557/0933/5761/files/d56dea20-a036-4dfd-8ed2-dcc27eab35cf_A9129_TD01_V2_ae_e_3-1_3840x.png?v=1750150816"],
-  ["HomeBase", "0557/0933/5761/files/e07d824c-fea1-4c70-b21e-103a2d14d4b5_Anker_SOLIX_-_Portable_Power_Stations_Solar_Generators_-_Anker_U_2_3840x.png?v=1750150924"],
   ["Indoor Cameras", "0557/0933/5761/files/ce554e73-26d0-40fc-8178-becdedb0bca6_Y1811-c_a_a_1_2-1_3840x.png?v=1750150793"],
-  ["Smart Display", "0504/7094/4954/files/8267a8fb-fe11-4962-979d-85b7c501c6bb_T87A0-ID-Front_view-US_3840x.png?v=1754564699"],
   ["Baby Monitors", "0557/0933/5761/files/aced3b8a-c8e7-4a80-adf0-fb9acc2ba541_image-5_3840x.png?v=1750151023"],
 ];
 
