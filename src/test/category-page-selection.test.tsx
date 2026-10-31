@@ -30,8 +30,16 @@ describe("Category page selection", () => {
     expect(container.querySelector("[data-category-reference]")).toBeNull();
   });
 
-  it("renders the copied reference page for another category", async () => {
+  it("applies the same earlier page design to robot-vacuums with its own content", async () => {
     const { container } = await renderCategory("robot-vacuums");
+
+    expect(screen.getByText("Why Choose eufy Robot Vacuums?")).toBeInTheDocument();
+    expect(screen.getByText("Anker eufy Robot Vacuum Omni E35")).toBeInTheDocument();
+    expect(container.querySelector("[data-category-reference]")).toBeNull();
+  });
+
+  it("renders the copied reference page for another category", async () => {
+    const { container } = await renderCategory("outdoor-cameras");
 
     const host = container.querySelector("[data-category-reference]");
     expect(host).not.toBeNull();
