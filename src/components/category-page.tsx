@@ -1,42 +1,49 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import parse, { domToReact, Element, type HTMLReactParserOptions } from "html-react-parser";
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, Check, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StoreHeader, StoreFooter } from "@/components/store-header";
-import { categories, categoryImages, lockProducts, type Category, type CategoryProduct } from "@/lib/categories";
+import type { Category } from "@/lib/categories";
+import { products } from "@/lib/products";
+import source from "@/lib/category-reference.html?raw";
+import sourceCss from "@/lib/category-reference.css?raw";
 
-import { productSlug } from "@/lib/products";
-
-const series = ["S Series", "E Series", "C Series"];
-function jump(id: string) { document.getElementById(id)?.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block:"start"}); }
-
-export function CategoryPage({category}: {category:Category}) {
- const locks = category.slug === "smart-locks";
- const [activeFeature,setActiveFeature] = useState(0);
- const [firstCompare,setFirstCompare] = useState(lockProducts[0]?.name ?? "");
- const [secondCompare,setSecondCompare] = useState(lockProducts[1]?.name ?? "");
- const heading = locks ? "FamiLock" : category.name;
- const featureImages = locks ? ["492","468","488","534"].map(x=> categoryImages[x] ?? "") : Array(4).fill(category.product.image) as string[];
- const solutions = locks ? ["597","571","639","646"].map(x=>categoryImages[x] ?? "") : featureImages;
- const compare = [firstCompare,secondCompare].map(name=> lockProducts.find(x=>x.name===name)).filter((x):x is CategoryProduct=>Boolean(x));
- return <div className="min-h-screen bg-background text-foreground"><StoreHeader />
- <main className="bg-muted pb-16">
-  <div className="mx-auto max-w-[1920px] px-5 md:px-[3.33%]">
-   <div className="flex min-h-24 items-center justify-between gap-4 py-4"><h1 className="text-2xl font-semibold md:text-3xl">{heading}</h1><nav aria-label="Category sections" className="flex gap-2 sm:gap-8">{(locks ? series : ["Highlights", "Products"]).map((label,i)=><Button key={label} variant="ghost" className="h-auto flex-col gap-1 px-2 py-1 text-[10px]" onClick={()=>jump(locks ? `series-${i}` : i===0 ? "highlights" : "products")}><img src={locks ? lockProducts[i===0 ? 0 : i===1 ? 4 : 7]?.image : category.product.image} alt="" className="h-10 w-12 object-contain" />{label}</Button>)}</nav></div>
-   <section className={`relative overflow-hidden rounded-lg ${category.photo ? "category-photo-banner" : "category-object-banner"}`}>
-    <img src={category.hero} alt={category.title} className={category.photo ? "category-hero-photo" : "category-hero-object"} fetchPriority="high" />
-    <div className="category-hero-copy"><h2 className="text-lg font-semibold md:text-2xl">{category.title}</h2><p className="mt-2 text-xs font-medium md:text-sm">{category.subtitle}</p><div className="mt-5 flex gap-2"><Button asChild variant="outline" className="rounded-full border-foreground bg-transparent"><Link to="/products/$product" params={{product:productSlug(category.title)}}>Learn More</Link></Button><Button asChild className="rounded-full"><Link to="/products/$product" params={{product:productSlug(category.title)}}>Shop Now</Link></Button></div></div>
-   </section>
-   <section id="highlights" className="scroll-mt-36 py-14 md:py-20"><h2 className="mb-8 text-center text-2xl font-semibold md:text-4xl">Why Choose eufy {heading}?</h2><div className="grid grid-cols-2 gap-4 md:grid-cols-4">{category.features.map((feature,i)=><div key={feature}><img src={featureImages[i]} alt={feature} loading="lazy" className={`aspect-[4/3] w-full rounded-lg ${locks ? "object-cover" : "bg-background object-contain p-6"}`} /><h3 className="mt-4 text-center text-sm font-semibold md:text-base">{feature}</h3></div>)}</div></section>
-   <section id="products" className="scroll-mt-36 pb-12"><h2 className="text-center text-2xl font-semibold md:text-4xl">{locks ? "Video Smart Lock" : category.name}</h2><p className="mb-6 mt-3 text-center text-sm">{locks ? "Guardian at Your Door. Sees. Knows. Guards." : category.subtitle}</p>{locks && <><div className="mb-6 flex justify-center gap-3">{["See & Unlock Anywhere","See Before You Open","Works with eufy Cam"].map((f,i)=><Button key={f} variant={activeFeature===i ? "default" : "ghost"} className="h-auto max-w-40 whitespace-normal rounded-full px-4 py-2 text-xs" onClick={()=>setActiveFeature(i)}>{f}</Button>)}</div><img src={categoryImages[activeFeature===0 ? "810" : activeFeature===1 ? "466" : "511"]} alt={["See & Unlock Anywhere","See Before You Open","Works with eufy Cam"][activeFeature]} loading="lazy" className="mb-6 aspect-[3/1] w-full rounded-lg object-cover" /></>}<ProductShelf products={locks ? lockProducts.slice(0,5) : [category.product]} /></section>
-   {locks && series.map((s,i)=><section key={s} id={`series-${i}`} className="scroll-mt-36 py-10 md:py-14"><h2 className="text-center text-3xl font-semibold md:text-4xl">{s}</h2><p className="mt-3 text-center text-sm">{["Next-Gen Biometric Entry for Seamless Access","Unlock in a Flash, Protection You Can Trust","Simple to Use, Designed for Durability"][i]}</p><div className="my-6 flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs">{[["Biometric Unlocking","2K Camera","Works with Apple Home"],["Touchless Unlocking","Dual Power Supply","Works with Apple Home"],["Fingerprint Unlocking","High-Capacity Battery","Wi-Fi Enabled"]][i]?.map(f=><span key={f}>{f}</span>)}</div><div className="relative mb-6"><img src={categoryImages[i===0 ? "511" : i===1 ? "466" : "810"]} alt={s} loading="lazy" className="aspect-[3/1] w-full rounded-lg object-cover" /><Button variant="secondary" size="icon" aria-label={`Explore ${s}`} className="absolute bottom-4 right-4 rounded-full" onClick={()=>jump(`shelf-${i}`)}><Play /></Button></div><div id={`shelf-${i}`} className="scroll-mt-36"><ProductShelf products={lockProducts.filter(x=>x.series===s)} /></div></section>)}
-   {locks && <><section className="py-14"><h2 className="mb-8 text-center text-2xl font-semibold md:text-4xl">The eufy Solution</h2><div className="grid grid-cols-2 gap-4 md:grid-cols-4">{["Your Palm is Your Key","PowerDuo™ Technology","BHMA Grade 1","Universal Compatibility"].map((name,i)=><div key={name}><img src={solutions[i]} alt={name} loading="lazy" className="aspect-square w-full rounded-lg object-cover" /><h3 className="mt-4 text-base font-semibold">{name}</h3></div>)}</div></section><section className="py-12"><h2 className="mb-8 text-center text-2xl font-semibold md:text-4xl">Which FamiLock is Right For You?</h2><div className="grid grid-cols-2 gap-4">{compare.map((p,i)=><div key={i} className="min-w-0 text-center"><select aria-label={`Comparison product ${i+1}`} value={i===0 ? firstCompare : secondCompare} onChange={e=>(i===0 ? setFirstCompare : setSecondCompare)(e.target.value)} className="w-full rounded-md border bg-background p-3 text-xs md:text-base">{lockProducts.map(x=><option key={x.name}>{x.name}</option>)}</select><img src={p.image} alt={p.name} loading="lazy" className="mx-auto my-6 aspect-square w-40 object-contain md:w-56" /><p className="text-xl font-semibold">{p.price}</p><Button asChild className="my-4 rounded-full"><Link to="/products/$product" params={{product:productSlug(p.name)}}>Buy Now</Link></Button><div className="border-t py-4 text-sm">{p.description}</div><div className="border-t py-4 text-sm">{p.series}</div><div className="flex justify-center gap-2 border-t py-4 text-sm"><Check className="h-4 w-4" /> Built-In Wi-Fi</div></div>)}</div></section></>}
-   <section className="pt-12"><h2 className="mb-8 text-center text-2xl font-semibold">Explore More Categories</h2><div className="grid grid-cols-3 gap-3 md:grid-cols-6">{categories.filter(x=>x.slug!==category.slug).map(x=><Link key={x.slug} to="/category/$category" params={{category:x.slug}} className="min-w-0 text-center"><img src={x.product.image} alt={x.name} loading="lazy" className="aspect-square w-full rounded-lg bg-background object-contain p-3" /><span className="mt-3 block text-xs font-medium">{x.name}</span></Link>)}</div></section>
-  </div>
- </main><StoreFooter /></div>;
-}
-function ProductShelf({products}:{products:CategoryProduct[]}) {
- const [offset,setOffset]=useState(0);
- const visible=products.slice(offset,offset+4);
- return <div><div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">{visible.map(p=><article key={p.name} className="flex min-w-0 flex-col rounded-lg bg-background p-5"><img src={p.image} alt={p.name} loading="lazy" className="mx-auto mb-6 aspect-square w-full max-w-60 object-contain" /><h3 className="text-base font-semibold">{p.name}</h3><p className="mb-6 mt-3 text-xs leading-relaxed text-muted-foreground">{p.description}</p><div className="mt-auto"><p className="text-lg font-semibold">{p.price}</p>{p.saved && <p className="mt-1 text-xs text-destructive">Saved {p.saved}</p>}<Button asChild className="mt-4 w-full rounded-full"><Link to="/products/$product" params={{product:productSlug(p.name)}}>Shop Now</Link></Button></div></article>)}</div>{products.length>4 && <div className="mt-5 flex justify-end gap-2"><Button size="icon" variant="outline" aria-label="Previous products" disabled={offset===0} onClick={()=>setOffset(Math.max(0,offset-1))} className="rounded-full"><ChevronLeft /></Button><Button size="icon" variant="outline" aria-label="Next products" disabled={offset+4>=products.length} onClick={()=>setOffset(offset+1)} className="rounded-full"><ChevronRight /></Button></div>}</div>;
+// The same complete reference is intentionally used for every category.
+export function CategoryPage({ category: _category }: { category: Category }) {
+ const host = useRef<HTMLDivElement>(null);
+ const [root, setRoot] = useState<ShadowRoot | null>(null);
+ const [closedFaqs, setClosedFaqs] = useState<string[]>([]);
+ useEffect(() => { if (host.current) setRoot(host.current.shadowRoot ?? host.current.attachShadow({ mode: "open" })); }, []);
+ const options: HTMLReactParserOptions = { replace(node) {
+  if (!(node instanceof Element)) return undefined;
+  const children = () => domToReact(node.children as Parameters<typeof domToReact>[0], options);
+  if (node.name === "a") {
+   const href = node.attribs['href'];
+   const nodeText = (child: (typeof node.children)[number]): string => "data" in child ? child.data : "children" in child ? child.children.map(nodeText).join("") : "";
+   const text = node.children.map(nodeText).join("").trim();
+   const product = products.find(p => p.name === text);
+   if (product) return <Link className={node.attribs['class']} to="/products/$product" params={{ product: product.slug }}>{children()}</Link>;
+   return <a className={node.attribs['class']} href={href} target={href?.startsWith("https://") ? "_blank" : undefined} rel="noreferrer">{children()}</a>;
+  }
+  const faq = node.attribs["data-reference-faq"];
+  if (faq !== undefined) return <Button variant="ghost" className={`reference-control reference-faq ${node.attribs['class']}`} aria-expanded={!closedFaqs.includes(faq)} onClick={() => setClosedFaqs(list => list.includes(faq) ? list.filter(id => id !== faq) : [...list, faq])}>{children()}</Button>;
+  if (node.name === "button") {
+   const destination = node.attribs["data-destination"];
+   const props = { className: `reference-control ${node.attribs['class']}`, "aria-label": node.attribs["aria-label"], disabled: "disabled" in node.attribs };
+   if (destination && node.parent instanceof Element && node.parent.name !== "a") return <Button asChild variant="ghost" {...props}><a href={destination} target="_blank" rel="noreferrer">{children()}</a></Button>;
+   return <Button variant="ghost" {...props} onClick={() => { root?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]').forEach(input => { input.checked = false; }); }}>{children()}</Button>;
+  }
+  return undefined;
+ }};
+ return <><style>{sourceCss.match(/@font-face\{[^{}]*\}/g)?.join('\n')}</style><StoreHeader /><div ref={host} data-category-reference />{root && createPortal(<><style>{sourceCss}{`
+ :host { display:block; font-family:MontForAnker, sans-serif; color:var(--foreground); }
+ *, *::before, *::after { letter-spacing:0 !important; }
+ .reference-shell { font-family:MontForAnker, sans-serif; font-size:14px; font-weight:600; line-height:21px; }
+ .reference-control { font-family:inherit; font-size:inherit; box-shadow:none; }
+ [data-slot="button"].reference-control { gap:0; white-space:normal; }
+ [data-slot="button"].reference-faq { height:auto; width:100%; text-align:left; border-radius:0; padding-inline:0; }
+ button[aria-expanded="false"] + div { display:none; }
+ @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } }
+ `}</style><div className="reference-shell">{parse(source, options)}</div></>, root)}<StoreFooter /></>;
 }
