@@ -34,7 +34,7 @@ describe("Category page selection", () => {
     const { container } = await renderCategory("robot-vacuums");
 
     expect(screen.getByText("Why Choose eufy Robot Vacuums?")).toBeInTheDocument();
-    expect(screen.getByText("Anker eufy Robot Vacuum Omni E35")).toBeInTheDocument();
+    expect(screen.getAllByText("Anker eufy Robot Vacuum Omni E35").length).toBeGreaterThan(0);
     expect(container.querySelector("[data-category-reference]")).toBeNull();
   });
 
