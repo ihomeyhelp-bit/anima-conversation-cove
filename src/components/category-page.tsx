@@ -20,7 +20,8 @@ export function CategoryPage({ category: _category }: { category: Category }) {
   const children = () => domToReact(node.children as Parameters<typeof domToReact>[0], options);
   if (node.name === "a") {
    const href = node.attribs['href'];
-   const text = node.children.map(child => "data" in child ? child.data : "").join("").trim();
+   const nodeText = (child: (typeof node.children)[number]): string => "data" in child ? child.data : "children" in child ? child.children.map(nodeText).join("") : "";
+   const text = node.children.map(nodeText).join("").trim();
    const product = products.find(p => p.name === text);
    if (product) return <Link className={node.attribs['class']} to="/products/$product" params={{ product: product.slug }}>{children()}</Link>;
    return <a className={node.attribs['class']} href={href} target={href?.startsWith("https://") ? "_blank" : undefined} rel="noreferrer">{children()}</a>;
