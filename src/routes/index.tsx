@@ -10,6 +10,7 @@ import livingRoomMedium from "@/assets/home/living-room-1280.webp.asset.json";
 import livingRoomLarge from "@/assets/home/living-room-1920.webp.asset.json"; import logoLightAsset from "@/assets/brand/ihomey-logo-light.png.asset.json";
 import solarCamAsset from "@/assets/home/solar-security-camera-garden.webp.asset.json";
 import cSeriesCameraAsset from "@/assets/home/indoor-security-camera.webp.asset.json";
+import sSeriesCameraAsset from "@/assets/home/s-series-camera.webp.asset.json";
 
 const CDN = "https://cdn.shopify.com/s/files/1/";
 
@@ -64,7 +65,7 @@ const systems = [
 ];
 
 const series = [
-  { img: CDN + "0504/7094/4954/files/PC-2x_3840x.png?v=1789469117", t: "S Series", s: "Ultimate Imaging, Full Control" },
+  { img: sSeriesCameraAsset.url, t: "S Series", s: "Ultimate Imaging, Full Control" },
   { img: solarCamAsset.url, t: "E Series", s: "Reliable Security, Always On" },
   { img: cSeriesCameraAsset.url, t: "C Series", s: "Auto Tracking, Indoors or Outdoors" },
 ];
