@@ -31,3 +31,5 @@
 - [x] Verify multiple product pages, gallery and purchase handoff on desktop and mobile.- Remplacer image carte Smart Locks (upload utilisateur)
 - Remplacer image carte Outdoor Cameras (upload utilisateur)
 - [x] Remplacer image carte Robot Vacuums par l'upload utilisateur (PNG transparent)
+- [x] Remplacer la bannière de la page catégorie Robot Vacuums par le visuel L1 PRO (upload 09:48)
+- [x] Remplacer image carte Robot Vacuums par le second upload (PNG transparent)

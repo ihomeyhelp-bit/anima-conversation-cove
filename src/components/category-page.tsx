@@ -9,6 +9,13 @@ import type { Category } from "@/lib/categories";
 import { products } from "@/lib/products";
 import source from "@/lib/category-reference.html?raw";
 import sourceCss from "@/lib/category-reference.css?raw";
+import robotVacuumsBanner from "@/assets/categories/robot-vacuums-banner.jpg.asset.json";
+
+// The reference banner the copied page ships with, swapped per category below.
+const REFERENCE_HERO = "/__l5e/assets-v1/21cadf78-e54b-4e72-ac09-d14bf83b7d50/reference-8.png";
+const heroOverrides: Record<string, string> = {
+  "robot-vacuums": robotVacuumsBanner.url,
+};
 
 // Smart Locks keeps its own earlier page; every other category uses the copied reference.
 export function CategoryPage({ category }: { category: Category }) {
@@ -17,7 +24,7 @@ export function CategoryPage({ category }: { category: Category }) {
 }
 
 // The same complete reference is intentionally used for every other category.
-function ReferenceCategoryPage({ category: _category }: { category: Category }) {
+function ReferenceCategoryPage({ category }: { category: Category }) {
  const host = useRef<HTMLDivElement>(null);
  const [root, setRoot] = useState<ShadowRoot | null>(null);
  const [closedFaqs, setClosedFaqs] = useState<string[]>([]);
@@ -43,6 +50,8 @@ function ReferenceCategoryPage({ category: _category }: { category: Category }) 
   }
   return undefined;
  }};
+ const override = heroOverrides[category.slug];
+ const html = override ? source.replace(REFERENCE_HERO, override) : source;
  return <><style>{sourceCss.match(/@font-face\{[^{}]*\}/g)?.join('\n')}</style><StoreHeader /><div ref={host} data-category-reference />{root && createPortal(<><style>{sourceCss}{`
   :host { display:block; font-family:MontForAnker, sans-serif; color:var(--foreground); }
   *, *::before, *::after { letter-spacing:0 !important; }
@@ -52,5 +61,5 @@ function ReferenceCategoryPage({ category: _category }: { category: Category }) 
   [data-slot="button"].reference-faq { height:auto; width:100%; text-align:left; border-radius:0; padding-inline:0; }
   button[aria-expanded="false"] + div { display:none; }
   @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } }
-  `}</style><div className="reference-shell">{parse(source, options)}</div></>, root)}<StoreFooter /></>;
+  `}</style><div className="reference-shell">{parse(html, options)}</div></>, root)}<StoreFooter /></>;
 }
