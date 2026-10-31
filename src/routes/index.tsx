@@ -48,7 +48,7 @@ const care = [
 ];
 
 const cats: [string, string][] = [
-  ["Outdoor Cameras", outdoorCameraAsset.url],
+  ["Outdoor Cameras", babyMonitorAsset.url],
   ["Robot Vacuums", "0504/7094/4954/files/Frame_2121236208_4c45a479-2f7e-4818-bae2-8be5b96ef10b_3840x.png?v=1784704932"],
   ["Smart Locks", smartLockAsset.url],
   ["Breast Pumps", "0504/7094/4954/files/1-T600P_S2___1500x1500_7a53c066-e520-4cca-827f-67174007a17e.png?v=1790061158"],
