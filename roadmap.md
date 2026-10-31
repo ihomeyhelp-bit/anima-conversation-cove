@@ -8,7 +8,7 @@
 
 # Product pages
 - [x] Replace family-specific presentation with the FamiLock S3 Max module for every existing product page.
-- [ ] Verify unified image framing, product details and purchase controls across catalogue families.
+- [x] Verify unified image framing, product details and purchase controls across catalogue families.
 - [x] Restore complete matching-model reference markup, gallery, frames and media; preserve source layout wrappers with model-specific content for other vacuums and baby monitors.
 - [x] Verify full reference presentation, images and controls on desktop and small screens.
 - [ ] Obtain each other vacuum and baby monitor model's complete source photos and details to reproduce their content fully; current catalogue only provides limited model data.
