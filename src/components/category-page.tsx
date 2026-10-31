@@ -4,13 +4,20 @@ import parse, { domToReact, Element, type HTMLReactParserOptions } from "html-re
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { StoreHeader, StoreFooter } from "@/components/store-header";
+import { LegacyCategoryPage } from "@/components/category-page-legacy";
 import type { Category } from "@/lib/categories";
 import { products } from "@/lib/products";
 import source from "@/lib/category-reference.html?raw";
 import sourceCss from "@/lib/category-reference.css?raw";
 
-// The same complete reference is intentionally used for every category.
-export function CategoryPage({ category: _category }: { category: Category }) {
+// Smart Locks keeps its own earlier page; every other category uses the copied reference.
+export function CategoryPage({ category }: { category: Category }) {
+  if (category.slug === "smart-locks") return <LegacyCategoryPage category={category} />;
+  return <ReferenceCategoryPage category={category} />;
+}
+
+// The same complete reference is intentionally used for every other category.
+function ReferenceCategoryPage({ category: _category }: { category: Category }) {
  const host = useRef<HTMLDivElement>(null);
  const [root, setRoot] = useState<ShadowRoot | null>(null);
  const [closedFaqs, setClosedFaqs] = useState<string[]>([]);
@@ -37,13 +44,13 @@ export function CategoryPage({ category: _category }: { category: Category }) {
   return undefined;
  }};
  return <><style>{sourceCss.match(/@font-face\{[^{}]*\}/g)?.join('\n')}</style><StoreHeader /><div ref={host} data-category-reference />{root && createPortal(<><style>{sourceCss}{`
- :host { display:block; font-family:MontForAnker, sans-serif; color:var(--foreground); }
- *, *::before, *::after { letter-spacing:0 !important; }
- .reference-shell { font-family:MontForAnker, sans-serif; font-size:14px; font-weight:600; line-height:21px; }
- .reference-control { font-family:inherit; font-size:inherit; box-shadow:none; }
- [data-slot="button"].reference-control { gap:0; white-space:normal; }
- [data-slot="button"].reference-faq { height:auto; width:100%; text-align:left; border-radius:0; padding-inline:0; }
- button[aria-expanded="false"] + div { display:none; }
- @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } }
- `}</style><div className="reference-shell">{parse(source, options)}</div></>, root)}<StoreFooter /></>;
+  :host { display:block; font-family:MontForAnker, sans-serif; color:var(--foreground); }
+  *, *::before, *::after { letter-spacing:0 !important; }
+  .reference-shell { font-family:MontForAnker, sans-serif; font-size:14px; font-weight:600; line-height:21px; }
+  .reference-control { font-family:inherit; font-size:inherit; box-shadow:none; }
+  [data-slot="button"].reference-control { gap:0; white-space:normal; }
+  [data-slot="button"].reference-faq { height:auto; width:100%; text-align:left; border-radius:0; padding-inline:0; }
+  button[aria-expanded="false"] + div { display:none; }
+  @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } }
+  `}</style><div className="reference-shell">{parse(source, options)}</div></>, root)}<StoreFooter /></>;
 }
