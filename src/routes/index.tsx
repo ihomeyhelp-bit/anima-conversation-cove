@@ -130,13 +130,21 @@ function Index() {
       </Section>
 
       <Section title="Explore Top Choices by Category">
-        <div className="grid grid-cols-3 gap-4 md:grid-cols-6">
-          {cats.map(([n, src]) => (
-            <Link key={n} to="/category/$category" params={{category: categorySlug(n)}} className="group rounded-2xl bg-muted p-4 text-center">
-              <img src={CDN + src} alt={n} className="mx-auto aspect-square w-full object-contain transition-transform group-hover:scale-105" />
-              <p className="mt-2 text-sm font-semibold">{n}</p>
-            </Link>
-          ))}
+        <div className="relative">
+          <div ref={catRef} onScroll={updateCatArrows} className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {cats.map(([n, src]) => (
+              <Link key={n} to="/category/$category" params={{category: categorySlug(n)}} className="group w-[38%] shrink-0 snap-start rounded-2xl bg-muted p-4 text-center sm:w-[29%] md:w-[21.5%] lg:w-[15.5%]">
+                <img src={CDN + src} alt={n} className="mx-auto aspect-square w-full object-contain transition-transform group-hover:scale-105" />
+                <p className="mt-2 text-sm font-semibold">{n}</p>
+              </Link>
+            ))}
+          </div>
+          {catCanLeft && (
+            <button aria-label="Catégories précédentes" onClick={() => scrollCats(-1)} className="absolute -left-4 top-1/2 -translate-y-1/2 rounded-full bg-background p-2 shadow-md ring-1 ring-border"><ChevronLeft /></button>
+          )}
+          {catCanRight && (
+            <button aria-label="Catégories suivantes" onClick={() => scrollCats(1)} className="absolute -right-4 top-1/2 -translate-y-1/2 rounded-full bg-background p-2 shadow-md ring-1 ring-border"><ChevronRight /></button>
+          )}
         </div>
       </Section>
 
