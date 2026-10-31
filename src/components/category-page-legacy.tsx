@@ -16,7 +16,8 @@ export function LegacyCategoryPage({category}: {category:Category}) {
  const [firstCompare,setFirstCompare] = useState(lockProducts[0]?.name ?? "");
  const [secondCompare,setSecondCompare] = useState(lockProducts[1]?.name ?? "");
  const heading = locks ? "FamiLock" : category.name;
- const featureImages = locks ? ["492","468","488","534"].map(x=> categoryImages[x] ?? "") : Array(4).fill(category.product.image) as string[];
+ const featureImageKeys: Record<string, string[]> = { "smart-locks": ["492","468","488","534"], "robot-vacuums": ["488","491","534","492"] };
+ const featureImages = (featureImageKeys[category.slug] ?? []).map(x=> categoryImages[x] ?? "");
  const solutions = locks ? ["597","571","639","646"].map(x=>categoryImages[x] ?? "") : featureImages;
  const compare = [firstCompare,secondCompare].map(name=> lockProducts.find(x=>x.name===name)).filter((x):x is CategoryProduct=>Boolean(x));
  return <div className="min-h-screen bg-background text-foreground"><StoreHeader />

@@ -35,6 +35,10 @@ describe("Category page selection", () => {
 
     expect(screen.getByText("Why Choose eufy Robot Vacuums?")).toBeInTheDocument();
     expect(screen.getAllByText("Anker eufy Robot Vacuum Omni E35").length).toBeGreaterThan(0);
+    const featureAlts = ["Deep Cleaning", "Powerful Suction", "HydroJet™ Technology", "Everyday Care"];
+    const sources = featureAlts.map(alt => screen.getByAltText(alt).getAttribute("src"));
+    expect(new Set(sources).size).toBe(4);
+    expect(sources.every(src => src && src.length > 0)).toBe(true);
     expect(container.querySelector("[data-category-reference]")).toBeNull();
   });
 
