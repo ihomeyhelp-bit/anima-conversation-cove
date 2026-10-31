@@ -7,6 +7,8 @@
 - [ ] Confirm whether "eufy" should also be replaced inside the verbatim FamiLock S3 Max source text and product names.
 
 # Product pages
+- [x] Apply the complete FamiLock source page and original photos to every product URL as requested for temporary presentation.
+- [x] Verify identical source sections, gallery media and model-specific purchase destinations across all 25 products.
 - [x] Audit all 25 rendered product pages against their catalogue photos, details, specifications and purchase destinations; remove cross-model category scene fallbacks and restore Omni S2 reference media.
 - [ ] Validate category-derived photos and limited model descriptions against each product's authoritative source; model-specific references are not available for every catalogue entry.
 - [x] Replace family-specific presentation with the FamiLock S3 Max module for every existing product page.
