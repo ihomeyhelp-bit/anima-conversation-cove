@@ -3,7 +3,7 @@ import { categorySlug } from "@/lib/categories";
 import { productSlug } from "@/lib/products";
 import { Button } from "@/components/ui/button";
 import { StoreHeader } from "@/components/store-header";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import livingRoomSmall from "@/assets/home/living-room-768.webp.asset.json";
 import livingRoomMedium from "@/assets/home/living-room-1280.webp.asset.json";
