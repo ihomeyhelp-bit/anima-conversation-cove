@@ -28,4 +28,5 @@
 - [x] Verify original layout and gallery; preserve honest purchase handoff.
 - [ ] Recover missing source media: four creator/how-to images have no source address and one recommended doorbell image returns 404 in the supplied original.
 - [x] Apply the original product design and structure to every catalogue product using each product's own data.
-- [x] Verify multiple product pages, gallery and purchase handoff on desktop and mobile.
+- [x] Verify multiple product pages, gallery and purchase handoff on desktop and mobile.- Remplacer image carte Smart Locks (upload utilisateur)
+- Remplacer image carte Outdoor Cameras (upload utilisateur)

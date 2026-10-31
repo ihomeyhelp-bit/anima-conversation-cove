@@ -3,7 +3,7 @@ import { categorySlug } from "@/lib/categories";
 import { productSlug } from "@/lib/products";
 import { Button } from "@/components/ui/button";
 import { StoreHeader } from "@/components/store-header";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import livingRoomSmall from "@/assets/home/living-room-768.webp.asset.json";
 import livingRoomMedium from "@/assets/home/living-room-1280.webp.asset.json";
@@ -11,6 +11,8 @@ import livingRoomLarge from "@/assets/home/living-room-1920.webp.asset.json"; im
 import solarCamAsset from "@/assets/home/e-series-camera.webp.asset.json";
 import cSeriesCameraAsset from "@/assets/home/indoor-security-camera.webp.asset.json";
 import sSeriesCameraAsset from "@/assets/home/s-series-camera.webp.asset.json";
+import smartLockAsset from "@/assets/home/smart-lock-keypad.webp.asset.json";
+import outdoorCameraAsset from "@/assets/home/outdoor-camera.webp.asset.json";
 
 const CDN = "https://cdn.shopify.com/s/files/1/";
 
@@ -45,9 +47,9 @@ const care = [
 
 const cats: [string, string][] = [
   ["PoE NVR System", "0504/7094/4954/files/9ed65272-8552-4690-a4da-ef58ca749a34_ae_a_a_a_292_3840x.png?v=1756976365"],
-  ["Outdoor Cameras", "0557/0933/5761/files/136df522-67f0-43fa-930d-80aa186626db_A2669113_TD01_V2_1_3840x.png?v=1750150770"],
+  ["Outdoor Cameras", outdoorCameraAsset.url],
   ["Robot Vacuums", "0504/7094/4954/files/Frame_2121236208_4c45a479-2f7e-4818-bae2-8be5b96ef10b_3840x.png?v=1784704932"],
-  ["Smart Locks", "0557/0933/5761/files/26a89adc-37bf-4ffb-af99-5d2f9685f678_A80E7011_TD01_V1_2_3_3840x.png?v=1750150869"],
+  ["Smart Locks", smartLockAsset.url],
   ["Breast Pumps", "0504/7094/4954/files/1-T600P_S2___1500x1500_7a53c066-e520-4cca-827f-67174007a17e.png?v=1790061158"],
   ["Video Doorbells", "0557/0933/5761/files/d56dea20-a036-4dfd-8ed2-dcc27eab35cf_A9129_TD01_V2_ae_e_3-1_3840x.png?v=1750150816"],
   ["Indoor Cameras", "0557/0933/5761/files/ce554e73-26d0-40fc-8178-becdedb0bca6_Y1811-c_a_a_1_2-1_3840x.png?v=1750150793"],
@@ -83,10 +85,26 @@ function Index() {
   const [h, setH] = useState(0);
   const [c, setC] = useState(0);
   const [tab, setTab] = useState("Best Seller");
+  const catRef = useRef<HTMLDivElement>(null);
+  const [catCanLeft, setCatCanLeft] = useState(false);
+  const [catCanRight, setCatCanRight] = useState(true);
   useEffect(() => {
     const id = setInterval(() => setH((x) => (x + 1) % heroes.length), 6000);
     return () => clearInterval(id);
   }, []);
+  const updateCatArrows = () => {
+    const el = catRef.current;
+    if (!el) return;
+    setCatCanLeft(el.scrollLeft > 4);
+    setCatCanRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+  const scrollCats = (dir: number) => {
+    const el = catRef.current;
+    if (!el) return;
+    const first = el.firstElementChild as HTMLElement | null;
+    const step = first ? first.offsetWidth + 16 : el.clientWidth / 3;
+    el.scrollBy({ left: dir * step * 2, behavior: "smooth" });
+  };
   const hero = heroes[h] ?? heroes[0];
   const item = care[c] ?? care[0];
   if (!hero || !item) return null;
@@ -130,13 +148,21 @@ function Index() {
       </Section>
 
       <Section title="Explore Top Choices by Category">
-        <div className="grid grid-cols-3 gap-4 md:grid-cols-6">
-          {cats.map(([n, src]) => (
-            <Link key={n} to="/category/$category" params={{category: categorySlug(n)}} className="group rounded-2xl bg-muted p-4 text-center">
-              <img src={CDN + src} alt={n} className="mx-auto aspect-square w-full object-contain transition-transform group-hover:scale-105" />
-              <p className="mt-2 text-sm font-semibold">{n}</p>
-            </Link>
-          ))}
+        <div className="relative">
+          <div ref={catRef} onScroll={updateCatArrows} className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {cats.map(([n, src]) => (
+              <Link key={n} to="/category/$category" params={{category: categorySlug(n)}} className="group w-[38%] shrink-0 snap-start rounded-2xl bg-muted p-4 text-center sm:w-[29%] md:w-[21.5%] lg:w-[15.5%]">
+                <img src={src.startsWith("/") ? src : CDN + src} alt={n} className="mx-auto aspect-square w-full object-contain transition-transform group-hover:scale-105" />
+                <p className="mt-2 text-sm font-semibold">{n}</p>
+              </Link>
+            ))}
+          </div>
+          {catCanLeft && (
+            <button aria-label="Catégories précédentes" onClick={() => scrollCats(-1)} className="absolute -left-4 top-1/2 -translate-y-1/2 rounded-full bg-background p-2 shadow-md ring-1 ring-border"><ChevronLeft /></button>
+          )}
+          {catCanRight && (
+            <button aria-label="Catégories suivantes" onClick={() => scrollCats(1)} className="absolute -right-4 top-1/2 -translate-y-1/2 rounded-full bg-background p-2 shadow-md ring-1 ring-border"><ChevronRight /></button>
+          )}
         </div>
       </Section>
 
