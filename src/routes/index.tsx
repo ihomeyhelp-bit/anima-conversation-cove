@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import livingRoomSmall from "@/assets/home/living-room-768.webp.asset.json";
 import livingRoomMedium from "@/assets/home/living-room-1280.webp.asset.json";
 import livingRoomLarge from "@/assets/home/living-room-1920.webp.asset.json"; import logoLightAsset from "@/assets/brand/ihomey-logo-light.png.asset.json";
-import solarCamAsset from "@/assets/home/solar-security-camera-garden.webp.asset.json";
+import solarCamAsset from "@/assets/home/e-series-camera.webp.asset.json";
 import cSeriesCameraAsset from "@/assets/home/indoor-security-camera.webp.asset.json";
 import sSeriesCameraAsset from "@/assets/home/s-series-camera.webp.asset.json";
 
