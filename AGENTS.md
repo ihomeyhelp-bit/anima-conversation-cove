@@ -12,4 +12,4 @@
 - Category pages use one dynamic TanStack route and a shared data-driven layout so every category preserves the same reference design without duplicated pages.
 - Store navigation is shared between the homepage and category pages so category destinations remain consistent.
 - Product pages use a shared dynamic route and catalogue derived from category products so links, galleries, and details resolve consistently; purchases hand off explicitly to the official store until commerce is connected.
-- All product pages use the original reference layout in a shadow root: FamiLock retains its verbatim markup, while other models fill a stripped reference template with their own catalogue data to prevent cross-product claims; media uses registered asset pointers and original scripts are not executed.
+- Product layout selection is centralized by product family: robot vacuums and baby monitors use the clean-product reference, while other models retain the original shadow-root layout; model-specific source content is restricted to its matching model to prevent cross-product claims, registered media is used and original scripts are never executed.
