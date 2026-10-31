@@ -117,7 +117,7 @@ function Index() {
       <Section title="Built with Care">
         <div className="relative overflow-hidden rounded-2xl">
           <img src={item.img} srcSet={item.srcSet} sizes="(min-width: 1664px) 1584px, calc(100vw - 80px)" alt={item.alt ?? item.t} width={1920} height={739} loading="lazy" decoding="async" className="h-[520px] w-full object-cover object-center" />
-          <div className="absolute left-5 right-5 top-8 max-w-md md:left-12 md:right-auto md:top-12">
+          <div className="absolute bottom-8 left-5 right-5 max-w-md md:bottom-12 md:left-12 md:right-auto">
             <h3 className="text-2xl font-bold md:text-3xl">{item.t}</h3>
             <p className="mt-3 text-base md:text-lg">{item.s}</p>
             <div className="mt-8 flex flex-wrap gap-3">
