@@ -48,7 +48,6 @@ const care = [
 ];
 
 const cats: [string, string][] = [
-  ["PoE NVR System", "0504/7094/4954/files/9ed65272-8552-4690-a4da-ef58ca749a34_ae_a_a_a_292_3840x.png?v=1756976365"],
   ["Outdoor Cameras", outdoorCameraAsset.url],
   ["Robot Vacuums", "0504/7094/4954/files/Frame_2121236208_4c45a479-2f7e-4818-bae2-8be5b96ef10b_3840x.png?v=1784704932"],
   ["Smart Locks", smartLockAsset.url],
