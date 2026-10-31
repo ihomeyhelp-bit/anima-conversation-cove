@@ -7,6 +7,9 @@
 - [ ] Confirm whether "eufy" should also be replaced inside the verbatim FamiLock S3 Max source text and product names.
 
 # Product pages
+- [x] Restore complete matching-model reference markup, gallery, frames and media; preserve source layout wrappers with model-specific content for other vacuums and baby monitors.
+- [x] Verify full reference presentation, images and controls on desktop and small screens.
+- [ ] Obtain each other vacuum and baby monitor model's complete source photos and details to reproduce their content fully; current catalogue only provides limited model data.
 - [x] Apply the new reference layout to robot vacuum and baby monitor product pages only; retain Omni S2 source feature sections and other models' own data.
 - [x] Verify affected product pages and confirm other product pages remain unchanged.
 - [x] Adapt the supplied product-page design for every listed product.
