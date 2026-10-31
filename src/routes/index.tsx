@@ -61,7 +61,7 @@ const cats: [string, string][] = [
 const systems = [
   { img: CDN + "0504/7094/4954/files/1088_1280-7_3840x.png?v=1783914069", t: "LocalSecure™ System", s: "Take Control of Your Home Security with eufy LocalSecure™ System" },
   { img: CDN + "0504/7094/4954/files/1088_1280-6_3840x.png?v=1783913642", t: "ProSecure™ System", s: "Professional 24/7 Security System Powered by a Local AI Agent" },
-  { img: CDN + "0504/7094/4954/files/0d387078-6f9a-4961-bb78-a08fb5ad3bd2_DTC_KV_544x640PX-2.png?v=1766579956", t: "ExpertSecure™ System", s: "The Best 24/7 Local Video Alarm System with Expert Monitoring" },
+  { img: CDN + "0504/7094/4954/files/0d387078-6f9a-4961-bb78-a08fb5ad3bd2_DTC_KV_544x640PX-2.png?v=1766579956", t: "ExpertSecure™ System", s: "The Best 24/7 Local Video Alarm System with Expert Monitoring", light: true },
 ];
 
 const series = [
@@ -117,7 +117,7 @@ function Index() {
       <Section title="Built with Care">
         <div className="relative overflow-hidden rounded-2xl">
           <img src={item.img} srcSet={item.srcSet} sizes="(min-width: 1664px) 1584px, calc(100vw - 80px)" alt={item.alt ?? item.t} width={1920} height={739} loading="lazy" decoding="async" className="h-[520px] w-full object-cover object-center" />
-          <div className="absolute left-5 right-5 top-8 max-w-md md:left-12 md:right-auto md:top-12">
+          <div className="absolute bottom-8 left-5 right-5 max-w-md md:bottom-12 md:left-12 md:right-auto">
             <h3 className="text-2xl font-bold md:text-3xl">{item.t}</h3>
             <p className="mt-3 text-base md:text-lg">{item.s}</p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -145,7 +145,7 @@ function Index() {
       </Section>
 
       <Section title="Choose the Security System that Best Fits Your Home">
-        <CardGrid items={systems} tall />
+        <CardGrid items={systems} tall bottom />
       </Section>
 
       <Section title="Find the Right Series for You">
@@ -157,7 +157,7 @@ function Index() {
           {tech.map((x) => (
             <a key={x.t} href="#" className="group relative overflow-hidden rounded-2xl">
               <img src={x.img} alt={x.t} className="h-[420px] w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              <div className="absolute inset-x-0 top-0 p-8 text-primary-foreground">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-8 pt-16 text-primary-foreground">
                 <h3 className="text-2xl font-bold">{x.t}</h3>
                 <p className="mt-2">{x.s}</p>
               </div>
