@@ -14,6 +14,7 @@ import sSeriesCameraAsset from "@/assets/home/s-series-camera.webp.asset.json";
 import smartLockAsset from "@/assets/home/smart-safe.png.asset.json";
 import outdoorCameraAsset from "@/assets/home/outdoor-camera.png.asset.json";
 import babyMonitorAsset from "@/assets/home/baby-monitor.png.asset.json";
+import videoDoorbellAsset from "@/assets/home/video-doorbell.png.asset.json";
 
 const CDN = "https://cdn.shopify.com/s/files/1/";
 
@@ -52,7 +53,7 @@ const cats: [string, string][] = [
   ["Robot Vacuums", "0504/7094/4954/files/Frame_2121236208_4c45a479-2f7e-4818-bae2-8be5b96ef10b_3840x.png?v=1784704932"],
   ["Smart Locks", smartLockAsset.url],
   ["Breast Pumps", "0504/7094/4954/files/1-T600P_S2___1500x1500_7a53c066-e520-4cca-827f-67174007a17e.png?v=1790061158"],
-  ["Video Doorbells", "0557/0933/5761/files/d56dea20-a036-4dfd-8ed2-dcc27eab35cf_A9129_TD01_V2_ae_e_3-1_3840x.png?v=1750150816"],
+  ["Video Doorbells", videoDoorbellAsset.url],
   ["Indoor Cameras", "0557/0933/5761/files/ce554e73-26d0-40fc-8178-becdedb0bca6_Y1811-c_a_a_1_2-1_3840x.png?v=1750150793"],
   ["Baby Monitors", babyMonitorAsset.url],
 ];
