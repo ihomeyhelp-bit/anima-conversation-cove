@@ -11,8 +11,9 @@ import livingRoomLarge from "@/assets/home/living-room-1920.webp.asset.json"; im
 import solarCamAsset from "@/assets/home/e-series-camera.webp.asset.json";
 import cSeriesCameraAsset from "@/assets/home/indoor-security-camera.webp.asset.json";
 import sSeriesCameraAsset from "@/assets/home/s-series-camera.webp.asset.json";
-import smartLockAsset from "@/assets/home/smart-lock-keypad.webp.asset.json";
-import outdoorCameraAsset from "@/assets/home/outdoor-camera.webp.asset.json";
+import smartLockAsset from "@/assets/home/smart-safe.png.asset.json";
+import outdoorCameraAsset from "@/assets/home/outdoor-camera.png.asset.json";
+import babyMonitorAsset from "@/assets/home/baby-monitor.png.asset.json";
 
 const CDN = "https://cdn.shopify.com/s/files/1/";
 
@@ -53,7 +54,7 @@ const cats: [string, string][] = [
   ["Breast Pumps", "0504/7094/4954/files/1-T600P_S2___1500x1500_7a53c066-e520-4cca-827f-67174007a17e.png?v=1790061158"],
   ["Video Doorbells", "0557/0933/5761/files/d56dea20-a036-4dfd-8ed2-dcc27eab35cf_A9129_TD01_V2_ae_e_3-1_3840x.png?v=1750150816"],
   ["Indoor Cameras", "0557/0933/5761/files/ce554e73-26d0-40fc-8178-becdedb0bca6_Y1811-c_a_a_1_2-1_3840x.png?v=1750150793"],
-  ["Baby Monitors", "0557/0933/5761/files/aced3b8a-c8e7-4a80-adf0-fb9acc2ba541_image-5_3840x.png?v=1750151023"],
+  ["Baby Monitors", babyMonitorAsset.url],
 ];
 
 const systems = [
