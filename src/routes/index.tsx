@@ -145,7 +145,7 @@ function Index() {
       </Section>
 
       <Section title="Choose the Security System that Best Fits Your Home">
-        <CardGrid items={systems} tall />
+        <CardGrid items={systems} tall bottom />
       </Section>
 
       <Section title="Find the Right Series for You">
@@ -157,7 +157,7 @@ function Index() {
           {tech.map((x) => (
             <a key={x.t} href="#" className="group relative overflow-hidden rounded-2xl">
               <img src={x.img} alt={x.t} className="h-[420px] w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              <div className="absolute inset-x-0 top-0 p-8 text-primary-foreground">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-8 pt-16 text-primary-foreground">
                 <h3 className="text-2xl font-bold">{x.t}</h3>
                 <p className="mt-2">{x.s}</p>
               </div>
