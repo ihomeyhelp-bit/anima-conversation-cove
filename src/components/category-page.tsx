@@ -19,28 +19,29 @@ export function CategoryPage({ category: _category }: { category: Category }) {
   if (!(node instanceof Element)) return undefined;
   const children = () => domToReact(node.children as Parameters<typeof domToReact>[0], options);
   if (node.name === "a") {
-   const href = node.attribs.href;
+   const href = node.attribs['href'];
    const text = node.children.map(child => "data" in child ? child.data : "").join("").trim();
    const product = products.find(p => p.name === text);
-   if (product) return <Link className={node.attribs.class} to="/products/$product" params={{ product: product.slug }}>{children()}</Link>;
-   return <a className={node.attribs.class} href={href} target={href?.startsWith("https://") ? "_blank" : undefined} rel="noreferrer">{children()}</a>;
+   if (product) return <Link className={node.attribs['class']} to="/products/$product" params={{ product: product.slug }}>{children()}</Link>;
+   return <a className={node.attribs['class']} href={href} target={href?.startsWith("https://") ? "_blank" : undefined} rel="noreferrer">{children()}</a>;
   }
   const faq = node.attribs["data-reference-faq"];
-  if (faq !== undefined) return <Button variant="ghost" className={`reference-control ${node.attribs.class}`} aria-expanded={!closedFaqs.includes(faq)} onClick={() => setClosedFaqs(list => list.includes(faq) ? list.filter(id => id !== faq) : [...list, faq])}>{children()}</Button>;
+  if (faq !== undefined) return <Button variant="ghost" className={`reference-control reference-faq ${node.attribs['class']}`} aria-expanded={!closedFaqs.includes(faq)} onClick={() => setClosedFaqs(list => list.includes(faq) ? list.filter(id => id !== faq) : [...list, faq])}>{children()}</Button>;
   if (node.name === "button") {
    const destination = node.attribs["data-destination"];
-   const props = { className: `reference-control ${node.attribs.class}`, "aria-label": node.attribs["aria-label"], disabled: "disabled" in node.attribs };
+   const props = { className: `reference-control ${node.attribs['class']}`, "aria-label": node.attribs["aria-label"], disabled: "disabled" in node.attribs };
    if (destination && node.parent instanceof Element && node.parent.name !== "a") return <Button asChild variant="ghost" {...props}><a href={destination} target="_blank" rel="noreferrer">{children()}</a></Button>;
    return <Button variant="ghost" {...props} onClick={() => { root?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]').forEach(input => { input.checked = false; }); }}>{children()}</Button>;
   }
   return undefined;
  }};
- return <><StoreHeader /><div ref={host} data-category-reference />{root && createPortal(<><style>{sourceCss}{`
+ return <><style>{sourceCss.match(/@font-face\{[^{}]*\}/g)?.join('\n')}</style><StoreHeader /><div ref={host} data-category-reference />{root && createPortal(<><style>{sourceCss}{`
  :host { display:block; font-family:MontForAnker, sans-serif; color:var(--foreground); }
  *, *::before, *::after { letter-spacing:0 !important; }
  .reference-shell { font-family:MontForAnker, sans-serif; font-size:14px; font-weight:600; line-height:21px; }
  .reference-control { font-family:inherit; font-size:inherit; box-shadow:none; }
  [data-slot="button"].reference-control { gap:0; white-space:normal; }
+ [data-slot="button"].reference-faq { height:auto; width:100%; text-align:left; border-radius:0; padding-inline:0; }
  button[aria-expanded="false"] + div { display:none; }
  @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } }
  `}</style><div className="reference-shell">{parse(source, options)}</div></>, root)}<StoreFooter /></>;
