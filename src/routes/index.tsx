@@ -11,7 +11,7 @@ import livingRoomLarge from "@/assets/home/living-room-1920.webp.asset.json"; im
 import solarCamAsset from "@/assets/home/e-series-camera.webp.asset.json";
 import cSeriesCameraAsset from "@/assets/home/indoor-security-camera.webp.asset.json";
 import sSeriesCameraAsset from "@/assets/home/s-series-camera.webp.asset.json";
-import smartLockAsset from "@/assets/home/smart-lock.png.asset.json";
+import smartLockAsset from "@/assets/home/smart-lock-v2.png.asset.json";
 import outdoorCameraAsset from "@/assets/home/outdoor-camera.png.asset.json";
 import babyMonitorAsset from "@/assets/home/baby-monitor.png.asset.json";
 import videoDoorbellAsset from "@/assets/home/video-doorbell.png.asset.json";
@@ -48,7 +48,6 @@ const care = [
 ];
 
 const cats: [string, string][] = [
-  ["PoE NVR System", "0504/7094/4954/files/9ed65272-8552-4690-a4da-ef58ca749a34_ae_a_a_a_292_3840x.png?v=1756976365"],
   ["Outdoor Cameras", outdoorCameraAsset.url],
   ["Robot Vacuums", "0504/7094/4954/files/Frame_2121236208_4c45a479-2f7e-4818-bae2-8be5b96ef10b_3840x.png?v=1784704932"],
   ["Smart Locks", smartLockAsset.url],
