@@ -9,7 +9,7 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Category pages use one dynamic TanStack route and render the same complete sanitized category reference markup and registered media inside a shared shadow root; preserve source wrappers and never execute imported scripts, keeping the verbatim reference isolated from site styles.
+- Category pages use one dynamic TanStack route; every category renders the same complete sanitized category reference markup and registered media inside a shared shadow root (preserve source wrappers, never execute imported scripts, keep the verbatim reference isolated from site styles), except the smart-locks category which keeps its own earlier hand-built page in category-page-legacy.tsx.
 - Store navigation is shared between the homepage and category pages so category destinations remain consistent.
 - Product pages use a shared dynamic route and catalogue derived from category products so links, galleries, and details resolve consistently; purchases hand off explicitly to the official store until commerce is connected.
 - Every product route renders the same complete sanitized FamiLock source markup and reference media in OriginalProductPage's shadow root; other products identify that content as provisional reference material while purchase handoffs retain catalogue identity, preventing placeholder claims from being mistaken for verified model data. Original scripts never execute.
