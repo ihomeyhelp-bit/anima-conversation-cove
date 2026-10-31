@@ -7,6 +7,7 @@
 - [ ] Confirm whether "eufy" should also be replaced inside the verbatim FamiLock S3 Max source text and product names.
 
 # Product pages
+- [ ] Audit every product's rendered photos, details, specifications and purchase destination; correct cross-model fallbacks.
 - [x] Replace family-specific presentation with the FamiLock S3 Max module for every existing product page.
 - [x] Verify unified image framing, product details and purchase controls across catalogue families.
 - [x] Restore complete matching-model reference markup, gallery, frames and media; preserve source layout wrappers with model-specific content for other vacuums and baby monitors.
