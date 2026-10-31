@@ -149,7 +149,7 @@ function Index() {
       </Section>
 
       <Section title="Find the Right Series for You">
-        <CardGrid items={series} tall />
+        <CardGrid items={series} tall bottom />
       </Section>
 
       <Section title="Powered by Industry-Leading Technology">
@@ -228,13 +228,13 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function CardGrid({ items, tall }: { items: { img: string; t: string; s: string; light?: boolean }[]; tall?: boolean }) {
+function CardGrid({ items, tall, bottom }: { items: { img: string; t: string; s: string; light?: boolean }[]; tall?: boolean; bottom?: boolean }) {
   return (
     <div className="grid gap-4 md:grid-cols-3">
       {items.map((x) => (
         <a key={x.t} href="#" className="group relative overflow-hidden rounded-2xl">
           <img src={x.img} alt={x.t} className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${tall ? "h-[600px]" : "h-[400px]"}`} />
-          <div className={`absolute inset-x-0 top-0 p-8 ${x.light ? "text-primary-foreground" : ""}`}>
+          <div className={`absolute inset-x-0 p-8 ${bottom ? "bottom-0" : "top-0"} ${x.light ? "text-primary-foreground" : ""}`}>
             <h3 className="text-2xl font-bold">{x.t}</h3>
             <p className="mt-2 text-sm">{x.s}</p>
             <span className="mt-5 inline-block rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground">Shop Now</span>
