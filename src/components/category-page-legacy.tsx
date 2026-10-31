@@ -4,8 +4,12 @@ import { ChevronLeft, ChevronRight, Check, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StoreHeader, StoreFooter } from "@/components/store-header";
 import { categories, categoryImages, lockProducts, type Category, type CategoryProduct } from "@/lib/categories";
+import robotVacuumsBanner from "@/assets/categories/robot-vacuums-banner.jpg.asset.json";
 
 import { productSlug } from "@/lib/products";
+
+// User-supplied hero banners replacing the catalogue default per category.
+const heroOverrides: Record<string, string> = { "robot-vacuums": robotVacuumsBanner.url };
 
 const series = ["S Series", "E Series", "C Series"];
 function jump(id: string) { document.getElementById(id)?.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block:"start"}); }
@@ -16,7 +20,8 @@ export function LegacyCategoryPage({category}: {category:Category}) {
  const [firstCompare,setFirstCompare] = useState(lockProducts[0]?.name ?? "");
  const [secondCompare,setSecondCompare] = useState(lockProducts[1]?.name ?? "");
  const heading = locks ? "FamiLock" : category.name;
- const featureImages = locks ? ["492","468","488","534"].map(x=> categoryImages[x] ?? "") : Array(4).fill(category.product.image) as string[];
+ const featureImageKeys: Record<string, string[]> = { "smart-locks": ["492","468","488","534"], "robot-vacuums": ["488","491","534","492"] };
+ const featureImages = (featureImageKeys[category.slug] ?? []).map(x=> categoryImages[x] ?? "");
  const solutions = locks ? ["597","571","639","646"].map(x=>categoryImages[x] ?? "") : featureImages;
  const compare = [firstCompare,secondCompare].map(name=> lockProducts.find(x=>x.name===name)).filter((x):x is CategoryProduct=>Boolean(x));
  return <div className="min-h-screen bg-background text-foreground"><StoreHeader />
@@ -24,7 +29,7 @@ export function LegacyCategoryPage({category}: {category:Category}) {
   <div className="mx-auto max-w-[1920px] px-5 md:px-[3.33%]">
    <div className="flex min-h-24 items-center justify-between gap-4 py-4"><h1 className="text-2xl font-semibold md:text-3xl">{heading}</h1><nav aria-label="Category sections" className="flex gap-2 sm:gap-8">{(locks ? series : ["Highlights", "Products"]).map((label,i)=><Button key={label} variant="ghost" className="h-auto flex-col gap-1 px-2 py-1 text-[10px]" onClick={()=>jump(locks ? `series-${i}` : i===0 ? "highlights" : "products")}><img src={locks ? lockProducts[i===0 ? 0 : i===1 ? 4 : 7]?.image : category.product.image} alt="" className="h-10 w-12 object-contain" />{label}</Button>)}</nav></div>
    <section className={`relative overflow-hidden rounded-lg ${category.photo ? "category-photo-banner" : "category-object-banner"}`}>
-    <img src={category.hero} alt={category.title} className={category.photo ? "category-hero-photo" : "category-hero-object"} fetchPriority="high" />
+    <img src={heroOverrides[category.slug] ?? category.hero} alt={category.title} className={category.photo ? "category-hero-photo" : "category-hero-object"} fetchPriority="high" />
     <div className="category-hero-copy"><h2 className="text-lg font-semibold md:text-2xl">{category.title}</h2><p className="mt-2 text-xs font-medium md:text-sm">{category.subtitle}</p><div className="mt-5 flex gap-2"><Button asChild variant="outline" className="rounded-full border-foreground bg-transparent"><Link to="/products/$product" params={{product:productSlug(category.title)}}>Learn More</Link></Button><Button asChild className="rounded-full"><Link to="/products/$product" params={{product:productSlug(category.title)}}>Shop Now</Link></Button></div></div>
    </section>
    <section id="highlights" className="scroll-mt-36 py-14 md:py-20"><h2 className="mb-8 text-center text-2xl font-semibold md:text-4xl">Why Choose eufy {heading}?</h2><div className="grid grid-cols-2 gap-4 md:grid-cols-4">{category.features.map((feature,i)=><div key={feature}><img src={featureImages[i]} alt={feature} loading="lazy" className={`aspect-[4/3] w-full rounded-lg ${locks ? "object-cover" : "bg-background object-contain p-6"}`} /><h3 className="mt-4 text-center text-sm font-semibold md:text-base">{feature}</h3></div>)}</div></section>
