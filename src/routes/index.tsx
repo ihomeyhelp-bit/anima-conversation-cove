@@ -65,7 +65,7 @@ const systems = [
 ];
 
 const series = [
-  { img: sSeriesCameraAsset.url, t: "S Series", s: "Ultimate Imaging, Full Control" },
+  { img: sSeriesCameraAsset.url, t: "S Series", s: "Ultimate Imaging, Full Control", light: true },
   { img: solarCamAsset.url, t: "E Series", s: "Reliable Security, Always On" },
   { img: cSeriesCameraAsset.url, t: "C Series", s: "Auto Tracking, Indoors or Outdoors" },
 ];
@@ -228,13 +228,13 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function CardGrid({ items, tall }: { items: { img: string; t: string; s: string }[]; tall?: boolean }) {
+function CardGrid({ items, tall }: { items: { img: string; t: string; s: string; light?: boolean }[]; tall?: boolean }) {
   return (
     <div className="grid gap-4 md:grid-cols-3">
       {items.map((x) => (
         <a key={x.t} href="#" className="group relative overflow-hidden rounded-2xl">
           <img src={x.img} alt={x.t} className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${tall ? "h-[600px]" : "h-[400px]"}`} />
-          <div className="absolute inset-x-0 top-0 p-8">
+          <div className={`absolute inset-x-0 top-0 p-8 ${x.light ? "text-primary-foreground" : ""}`}>
             <h3 className="text-2xl font-bold">{x.t}</h3>
             <p className="mt-2 text-sm">{x.s}</p>
             <span className="mt-5 inline-block rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground">Shop Now</span>
