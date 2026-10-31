@@ -11,7 +11,7 @@ import livingRoomLarge from "@/assets/home/living-room-1920.webp.asset.json"; im
 import solarCamAsset from "@/assets/home/e-series-camera.webp.asset.json";
 import cSeriesCameraAsset from "@/assets/home/indoor-security-camera.webp.asset.json";
 import sSeriesCameraAsset from "@/assets/home/s-series-camera.webp.asset.json";
-import smartLockAsset from "@/assets/home/smart-lock.png.asset.json";
+import smartLockAsset from "@/assets/home/smart-lock-v2.png.asset.json";
 import outdoorCameraAsset from "@/assets/home/outdoor-camera.png.asset.json";
 import babyMonitorAsset from "@/assets/home/baby-monitor.png.asset.json";
 import videoDoorbellAsset from "@/assets/home/video-doorbell.png.asset.json";
