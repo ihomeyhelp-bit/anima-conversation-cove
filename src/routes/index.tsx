@@ -83,10 +83,26 @@ function Index() {
   const [h, setH] = useState(0);
   const [c, setC] = useState(0);
   const [tab, setTab] = useState("Best Seller");
+  const catRef = useRef<HTMLDivElement>(null);
+  const [catCanLeft, setCatCanLeft] = useState(false);
+  const [catCanRight, setCatCanRight] = useState(true);
   useEffect(() => {
     const id = setInterval(() => setH((x) => (x + 1) % heroes.length), 6000);
     return () => clearInterval(id);
   }, []);
+  const updateCatArrows = () => {
+    const el = catRef.current;
+    if (!el) return;
+    setCatCanLeft(el.scrollLeft > 4);
+    setCatCanRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+  const scrollCats = (dir: number) => {
+    const el = catRef.current;
+    if (!el) return;
+    const first = el.firstElementChild as HTMLElement | null;
+    const step = first ? first.offsetWidth + 16 : el.clientWidth / 3;
+    el.scrollBy({ left: dir * step * 2, behavior: "smooth" });
+  };
   const hero = heroes[h] ?? heroes[0];
   const item = care[c] ?? care[0];
   if (!hero || !item) return null;
