@@ -61,7 +61,7 @@ const cats: [string, string][] = [
 const systems = [
   { img: CDN + "0504/7094/4954/files/1088_1280-7_3840x.png?v=1783914069", t: "LocalSecure™ System", s: "Take Control of Your Home Security with eufy LocalSecure™ System" },
   { img: CDN + "0504/7094/4954/files/1088_1280-6_3840x.png?v=1783913642", t: "ProSecure™ System", s: "Professional 24/7 Security System Powered by a Local AI Agent" },
-  { img: CDN + "0504/7094/4954/files/0d387078-6f9a-4961-bb78-a08fb5ad3bd2_DTC_KV_544x640PX-2.png?v=1766579956", t: "ExpertSecure™ System", s: "The Best 24/7 Local Video Alarm System with Expert Monitoring" },
+  { img: CDN + "0504/7094/4954/files/0d387078-6f9a-4961-bb78-a08fb5ad3bd2_DTC_KV_544x640PX-2.png?v=1766579956", t: "ExpertSecure™ System", s: "The Best 24/7 Local Video Alarm System with Expert Monitoring", light: true },
 ];
 
 const series = [
