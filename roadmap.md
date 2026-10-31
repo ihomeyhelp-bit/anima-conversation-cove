@@ -33,3 +33,4 @@
 - [x] Remplacer image carte Robot Vacuums par l'upload utilisateur (PNG transparent)
 - [x] Remplacer la bannière de la page catégorie Robot Vacuums par le visuel L1 PRO (upload 09:48)
 - [x] Remplacer image carte Robot Vacuums par le second upload (PNG transparent)
+- [ ] Remplacer la bannière hero de la page catégorie Robot Vacuums (design Smart Locks) par le nouveau visuel L1 PRO (upload 10:12)
