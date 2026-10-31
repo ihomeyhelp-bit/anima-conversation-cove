@@ -7,6 +7,8 @@
 - [ ] Confirm whether "eufy" should also be replaced inside the verbatim FamiLock S3 Max source text and product names.
 
 # Product pages
+- [ ] Clone the new reference for robot vacuum and baby monitor product pages only.
+- [ ] Verify affected product pages and confirm other product pages remain unchanged.
 - [x] Adapt the supplied product-page design for every listed product.
 - [x] Connect product links on category and homepage cards.
 - [x] Verify gallery, options, product navigation, and purchase handoff.
