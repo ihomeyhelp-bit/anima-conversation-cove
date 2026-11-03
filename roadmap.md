@@ -34,3 +34,7 @@
 - [x] Remplacer la bannière de la page catégorie Robot Vacuums par le visuel L1 PRO (upload 09:48)
 - [x] Remplacer image carte Robot Vacuums par le second upload (PNG transparent)
 - [x] Remplacer la bannière hero de la page catégorie Robot Vacuums (design Smart Locks) par le nouveau visuel L1 PRO (upload 10:12)
+
+# Admin
+- [x] Admin interface: products, stock, orders, administrators.
+- [ ] Online payment checkout (needs user confirmation of payment provider).
