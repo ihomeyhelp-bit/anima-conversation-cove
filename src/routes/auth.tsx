@@ -10,6 +10,7 @@ import logo from "@/assets/brand/ihomey-logo.png.asset.json";
 export const Route = createFileRoute("/auth")({
   ssr: false,
   head: () => ({ meta: [
+    { name: "robots", content: "noindex, nofollow" },
     { title: "Connexion admin | iHOMEY" },
     { name: "description", content: "Connexion à l'espace d'administration iHOMEY." },
     { property: "og:title", content: "Connexion admin | iHOMEY" },

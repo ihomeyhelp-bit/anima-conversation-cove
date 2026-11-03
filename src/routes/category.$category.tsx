@@ -8,7 +8,7 @@ export const Route = createFileRoute("/category/$category")({
  head: ({ loaderData }) => {
   const title = loaderData ? `${loaderData.name} | iHOMEY` : "Category unavailable | iHOMEY";
   const description = loaderData ? `Discover ${loaderData.name.toLowerCase()} from iHOMEY. ${loaderData.subtitle}.` : "Explore iHOMEY smart home products.";
-  return { meta: [{title},{name:"description",content:description},{property:"og:title",content:title},{property:"og:description",content:description},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"},...(referenceMedia.hero.startsWith("https://") ? [{property:"og:image",content:referenceMedia.hero},{name:"twitter:image",content:referenceMedia.hero}] : [])] };
+  return { meta: [{title},{name:"description",content:description},{property:"og:title",content:title},{property:"og:description",content:description},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"},...(referenceMedia.hero.startsWith("https://") ? [{property:"og:image",content:referenceMedia.hero},{name:"twitter:image",content:referenceMedia.hero}] : []),...(loaderData?[{property:"og:url",content:`https://anima-conversation-cove.lovable.app/category/${loaderData.slug}`}]:[])], links: loaderData?[{rel:"canonical",href:`https://anima-conversation-cove.lovable.app/category/${loaderData.slug}`}]:[] };
  },
  component: CategoryRoute,
 });

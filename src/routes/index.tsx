@@ -27,10 +27,13 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "iHOMEY | Smart Home Security & Cleaning" },
       { property: "og:description", content: "Security cameras, robot vacuums, smart locks and baby tech from iHOMEY." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://anima-conversation-cove.lovable.app/" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:image", content: CDN + "0521/9411/5753/files/1920_720_2_3840x.png?v=1790042462" },
       { name: "twitter:image", content: CDN + "0521/9411/5753/files/1920_720_2_3840x.png?v=1790042462" },
     ],
+    links: [{ rel: "canonical", href: "https://anima-conversation-cove.lovable.app/" }, { rel: "preload", as: "image", href: CDN + "0521/9411/5753/files/1920_720_2_1920x.png?v=1790042462", fetchPriority: "high" }],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: "iHOMEY", url: "https://anima-conversation-cove.lovable.app/", logo: "https://anima-conversation-cove.lovable.app/favicon.png" }) }],
   }),
   component: Index,
 });
@@ -115,13 +118,13 @@ function Index() {
     <div className="min-h-screen bg-background font-sans text-foreground">
       <StoreHeader />
 
-      <section className="relative h-[680px] overflow-hidden">
-        <img src={hero.img} alt={hero.title} className="absolute inset-0 h-full w-full object-cover" />
-        <div className={`relative mx-auto flex h-full max-w-[1664px] flex-col justify-center px-10 ${hero.dark ? "text-primary-foreground" : ""}`}>
-          <p className="text-lg font-semibold">{hero.eyebrow}</p>
-          <h1 className="mt-1 text-6xl font-bold tracking-tight">{hero.title}</h1>
+      <section className="relative h-[420px] overflow-hidden sm:h-[520px] lg:h-[680px]">
+        <img src={hero.img.replace("_3840x", "_1920x")} srcSet={[768, 1280, 1920, 2880].map((w) => `${hero.img.replace("_3840x", `_${w}x`)} ${w}w`).join(", ")} sizes="100vw" alt={hero.title} width={1920} height={720} fetchPriority={h === 0 ? "high" : "auto"} decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+        <div className={`relative mx-auto flex h-full max-w-[1664px] flex-col justify-center px-5 sm:px-10 ${hero.dark ? "text-primary-foreground" : ""}`}>
+          <p className="text-sm font-semibold sm:text-lg">{hero.eyebrow}</p>
+          <h1 className="mt-1 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">{hero.title}</h1>
           {hero.sub && <p className="mt-6 text-lg font-semibold">{hero.sub}</p>}
-          <a href="#" className={`mt-10 w-fit rounded-full px-7 py-3 font-semibold ${hero.dark ? "bg-background text-foreground" : "bg-primary text-primary-foreground"}`}>Shop Now</a>
+          <a href="#" className={`mt-6 w-fit rounded-full px-7 sm:mt-10 py-3 font-semibold ${hero.dark ? "bg-background text-foreground" : "bg-primary text-primary-foreground"}`}>Shop Now</a>
         </div>
         <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
           {heroes.map((_, i) => (
@@ -246,7 +249,7 @@ function Index() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mx-auto max-w-[1664px] px-10 pt-20">
-      <h2 className="mb-8 text-center text-4xl font-bold tracking-tight">{title}</h2>
+      <h2 className="mb-6 text-center text-2xl sm:mb-8 sm:text-3xl lg:text-4xl font-bold tracking-tight">{title}</h2>
       {children}
     </section>
   );

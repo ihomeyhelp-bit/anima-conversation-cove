@@ -27,6 +27,7 @@ type OrderRow = Database["public"]["Tables"]["orders"]["Row"] & { order_items: D
 export const Route = createFileRoute("/admin")({
   ssr: false,
   head: () => ({ meta: [
+    { name: "robots", content: "noindex, nofollow" },
     { title: "Administration | iHOMEY" },
     { name: "description", content: "Gestion des produits, du stock et des commandes iHOMEY." },
     { property: "og:title", content: "Administration | iHOMEY" },
