@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as CategoryCategoryRouteImport } from './routes/category.$category'
 import { Route as ProductsProductRouteImport } from './routes/products.$product'
 
@@ -30,6 +31,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategoryCategoryRoute = CategoryCategoryRouteImport.update({
   id: '/category/$category',
   path: '/category/$category',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/category/$category': typeof CategoryCategoryRoute
   '/products/$product': typeof ProductsProductRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/category/$category': typeof CategoryCategoryRoute
   '/products/$product': typeof ProductsProductRoute
 }
@@ -60,20 +68,33 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/category/$category': typeof CategoryCategoryRoute
   '/products/$product': typeof ProductsProductRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/admin' | '/auth' | '/category/$category' | '/products/$product'
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/sitemap.xml'
+    | '/category/$category'
+    | '/products/$product'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/auth' | '/category/$category' | '/products/$product'
+  to:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/sitemap.xml'
+    | '/category/$category'
+    | '/products/$product'
   id:
     | '__root__'
     | '/'
     | '/admin'
     | '/auth'
+    | '/sitemap.xml'
     | '/category/$category'
     | '/products/$product'
   fileRoutesById: FileRoutesById
@@ -82,6 +103,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CategoryCategoryRoute: typeof CategoryCategoryRoute
   ProductsProductRoute: typeof ProductsProductRoute
 }
@@ -109,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/category/$category': {
       id: '/category/$category'
       path: '/category/$category'
@@ -130,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   CategoryCategoryRoute: CategoryCategoryRoute,
   ProductsProductRoute: ProductsProductRoute,
 }
