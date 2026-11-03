@@ -154,9 +154,11 @@ function ProductDialog({ product, onClose }: { product: Partial<ProductRow>; onC
     setUploading(true);
     const path = `${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9.]/g, "_")}`;
     const { error } = await supabase.storage.from("product-images").upload(path, file);
+    if (error) { setUploading(false); return toast.error(error.message); }
+    const { data, error: e2 } = await supabase.storage.from("product-images").createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
     setUploading(false);
-    if (error) return toast.error(error.message);
-    set("image_url", supabase.storage.from("product-images").getPublicUrl(path).data.publicUrl);
+    if (e2 || !data) return toast.error(e2?.message ?? "Échec de l'envoi");
+    set("image_url", data.signedUrl);
   }
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
