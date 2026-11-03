@@ -38,7 +38,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-export const money = (cents: number) => `$${(cents / 100).toFixed(2)}`;
+const money = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 const STATUS: Record<string, string> = { pending: "En attente", paid: "Payée", shipped: "Expédiée", delivered: "Livrée", cancelled: "Annulée" };
 
 function AdminPage() {
