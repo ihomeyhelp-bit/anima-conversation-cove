@@ -33,8 +33,8 @@ function AuthPage() {
       ? await supabase.auth.signInWithPassword({ email, password })
       : await supabase.auth.signUp({ email, password, options: { emailRedirectTo: `${window.location.origin}/admin` } });
     setBusy(false);
-    if (res.error) return toast.error(res.error.message);
-    if (mode === "up" && !res.data.session) return toast.success("Compte créé. Confirmez votre email pour vous connecter.");
+    if (res.error) { toast.error(res.error.message); return; }
+    if (mode === "up" && !res.data.session) { toast.success("Compte créé. Confirmez votre email pour vous connecter."); return; }
     navigate({ to: "/admin" });
   }
   return (

@@ -150,14 +150,14 @@ function ProductDialog({ product, onClose }: { product: Partial<ProductRow>; onC
     onSuccess: () => { toast.success("Produit enregistré"); qc.invalidateQueries({ queryKey: ["admin-products"] }); onClose(); },
     onError: (e: Error) => toast.error(e.message),
   });
-  async function upload(file: File) {
+  async function upload(file: File): Promise<void> {
     setUploading(true);
     const path = `${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9.]/g, "_")}`;
     const { error } = await supabase.storage.from("product-images").upload(path, file);
-    if (error) { setUploading(false); return toast.error(error.message); }
+    if (error) { setUploading(false); toast.error(error.message); return; }
     const { data, error: e2 } = await supabase.storage.from("product-images").createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
     setUploading(false);
-    if (e2 || !data) return toast.error(e2?.message ?? "Échec de l'envoi");
+    if (e2 || !data) { toast.error(e2?.message ?? "Échec de l'envoi"); return; }
     set("image_url", data.signedUrl);
   }
   return (
