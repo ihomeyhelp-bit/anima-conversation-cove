@@ -19,7 +19,7 @@ export const listAdmins = createServerFn({ method: "GET" })
 
 export const addAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { email: string }) => ({ email: String(input.email).trim().toLowerCase() }))
+  .validator((input: { email: string }) => ({ email: String(input.email).trim().toLowerCase() }))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -33,7 +33,7 @@ export const addAdmin = createServerFn({ method: "POST" })
 
 export const removeAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { userId: string }) => ({ userId: String(input.userId) }))
+  .validator((input: { userId: string }) => ({ userId: String(input.userId) }))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     if (data.userId === context.userId) throw new Error("Vous ne pouvez pas retirer votre propre accès.");
