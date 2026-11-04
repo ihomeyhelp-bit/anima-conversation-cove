@@ -21,6 +21,7 @@ import { productSlug } from "@/lib/products";
 import { addAdmin, listAdmins, removeAdmin } from "@/lib/admin.functions";
 import logo from "@/assets/brand/ihomey-logo.png.asset.json";
 
+type Bundle = { name: string; price: string; note: string; image: string };
 type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 type OrderRow = Database["public"]["Tables"]["orders"]["Row"] & { order_items: Database["public"]["Tables"]["order_items"]["Row"][] };
 
@@ -143,7 +144,7 @@ function ProductDialog({ product, onClose }: { product: Partial<ProductRow>; onC
   const set = (k: string, v: unknown) => setF((s) => ({ ...s, [k]: v }));
   const save = useMutation({
     mutationFn: async () => {
-      const row = { name: f.name ?? "", slug: f.slug || productSlug(f.name ?? ""), category: f.category ?? "", series: f.series ?? "", description: f.description ?? "", image_url: f.image_url ?? "", price_cents: Math.round(Number(f.price) * 100) || 0, stock: Number(f.stock) || 0, low_stock_threshold: Number(f.low_stock_threshold) || 0, active: !!f.active };
+      const row = { gallery: f.gallery ?? [], scenes: f.scenes ?? [], details: (f.details ?? []).filter(Boolean), bundles: (f.bundles ?? []) as Database["public"]["Tables"]["products"]["Row"]["bundles"], custom_page: !!f.custom_page, name: f.name ?? "", slug: f.slug || productSlug(f.name ?? ""), category: f.category ?? "", series: f.series ?? "", description: f.description ?? "", image_url: f.image_url ?? "", price_cents: Math.round(Number(f.price) * 100) || 0, stock: Number(f.stock) || 0, low_stock_threshold: Number(f.low_stock_threshold) || 0, active: !!f.active };
       if (!row.name) throw new Error("Le nom est obligatoire");
       const { error } = product.id ? await supabase.from("products").update(row).eq("id", product.id) : await supabase.from("products").insert(row);
       if (error) throw error;
@@ -151,16 +152,26 @@ function ProductDialog({ product, onClose }: { product: Partial<ProductRow>; onC
     onSuccess: () => { toast.success("Produit enregistré"); qc.invalidateQueries({ queryKey: ["admin-products"] }); onClose(); },
     onError: (e: Error) => toast.error(e.message),
   });
-  async function upload(file: File): Promise<void> {
+  async function upload(file: File): Promise<void> { const url = await uploadFile(file); if (url) set("image_url", url); }
+  async function uploadFile(file: File): Promise<string | null> {
     setUploading(true);
     const path = `${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9.]/g, "_")}`;
     const { error } = await supabase.storage.from("product-images").upload(path, file);
-    if (error) { setUploading(false); toast.error(error.message); return; }
+    if (error) { setUploading(false); toast.error(error.message); return null; }
     const { data, error: e2 } = await supabase.storage.from("product-images").createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
     setUploading(false);
-    if (e2 || !data) { toast.error(e2?.message ?? "Échec de l'envoi"); return; }
-    set("image_url", data.signedUrl);
+    if (e2 || !data) { toast.error(e2?.message ?? "Échec de l'envoi"); return null; }
+    return data.signedUrl;
   }
+  const bundles = (Array.isArray(f.bundles) ? f.bundles : []) as Bundle[];
+  const addImages = async (k: "gallery" | "scenes", files: FileList) => { const urls: string[] = []; for (const file of Array.from(files)) { const u = await uploadFile(file); if (u) urls.push(u); } set(k, [...(f[k] ?? []), ...urls]); };
+  const ImageList = ({ k, label }: { k: "gallery" | "scenes"; label: string }) => (
+    <div className="space-y-2 sm:col-span-2"><Label>{label}</Label>
+      <div className="flex flex-wrap gap-2">{(f[k] ?? []).map((u, i) => <div key={u + i} className="relative"><img src={u} alt="" className="h-20 w-20 rounded-lg bg-muted object-contain" /><div className="absolute inset-x-0 bottom-0 flex justify-between"><Button size="icon" variant="secondary" className="h-6 w-6" disabled={i === 0} onClick={() => { const a = [...(f[k] ?? [])]; [a[i - 1], a[i]] = [a[i]!, a[i - 1]!]; set(k, a); }}>‹</Button><Button size="icon" variant="destructive" className="h-6 w-6" onClick={() => set(k, (f[k] ?? []).filter((_, j) => j !== i))}>×</Button></div></div>)}</div>
+      <Input type="file" accept="image/*" multiple disabled={uploading} onChange={(e) => e.target.files?.length && addImages(k, e.target.files)} />
+    </div>
+  );
+  const setBundle = (i: number, patch: Partial<Bundle>) => set("bundles", bundles.map((b, j) => j === i ? { ...b, ...patch } : b));
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-xl">
@@ -176,6 +187,19 @@ function ProductDialog({ product, onClose }: { product: Partial<ProductRow>; onC
           <div className="space-y-1 sm:col-span-2"><Label>Description</Label><Textarea rows={3} value={f.description ?? ""} onChange={(e) => set("description", e.target.value)} /></div>
           <div className="space-y-2 sm:col-span-2"><Label>Photo</Label>
             <div className="flex items-center gap-3">{f.image_url && <img src={f.image_url} alt="" className="h-16 w-16 rounded-lg bg-muted object-contain" />}<Input type="file" accept="image/*" disabled={uploading} onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} /></div>
+          </div>
+          <div className="sm:col-span-2 border-t border-border pt-4"><div className="flex items-center gap-3"><Switch checked={!!f.custom_page} onCheckedChange={(v) => set("custom_page", v)} /><Label>Utiliser ce contenu sur la page produit</Label></div><p className="mt-1 text-xs text-muted-foreground">Sinon, la page affiche le contenu FamiLock provisoire.</p></div>
+          <ImageList k="gallery" label="Photos produit (galerie)" />
+          <ImageList k="scenes" label="Photos de scène" />
+          <div className="space-y-1 sm:col-span-2"><Label>Détails (un point par ligne — « Titre: texte » met le titre en gras)</Label><Textarea rows={6} value={(f.details ?? []).join("\n")} onChange={(e) => set("details", e.target.value.split("\n"))} /></div>
+          <div className="space-y-2 sm:col-span-2"><Label>Bundles</Label>
+            {bundles.map((b, i) => <div key={i} className="grid gap-2 rounded-lg border border-border p-3 sm:grid-cols-2">
+              <Input placeholder="Nom du bundle" value={b.name} onChange={(e) => setBundle(i, { name: e.target.value })} />
+              <Input placeholder="Prix ($)" type="number" step="0.01" value={b.price} onChange={(e) => setBundle(i, { price: e.target.value })} />
+              <Input className="sm:col-span-2" placeholder="Note (ex. produits inclus, réduction)" value={b.note} onChange={(e) => setBundle(i, { note: e.target.value })} />
+              <div className="flex items-center gap-2 sm:col-span-2">{b.image && <img src={b.image} alt="" className="h-12 w-12 rounded bg-muted object-contain" />}<Input type="file" accept="image/*" disabled={uploading} onChange={async (e) => { const file = e.target.files?.[0]; if (file) { const u = await uploadFile(file); if (u) setBundle(i, { image: u }); } }} /><Button variant="ghost" size="icon" onClick={() => set("bundles", bundles.filter((_, j) => j !== i))}><Trash2 /></Button></div>
+            </div>)}
+            <Button variant="outline" onClick={() => set("bundles", [...bundles, { name: "", price: "", note: "", image: "" }])}><Plus /> Ajouter un bundle</Button>
           </div>
         </div>
         <DialogFooter><Button variant="outline" onClick={onClose}>Annuler</Button><Button onClick={() => save.mutate()} disabled={save.isPending || uploading}>Enregistrer</Button></DialogFooter>

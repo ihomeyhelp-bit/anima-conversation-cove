@@ -104,14 +104,19 @@ export type Database = {
       products: {
         Row: {
           active: boolean
+          bundles: Json
           category: string
           created_at: string
+          custom_page: boolean
           description: string
+          details: string[]
+          gallery: string[]
           id: string
           image_url: string
           low_stock_threshold: number
           name: string
           price_cents: number
+          scenes: string[]
           series: string
           slug: string
           stock: number
@@ -119,14 +124,19 @@ export type Database = {
         }
         Insert: {
           active?: boolean
+          bundles?: Json
           category?: string
           created_at?: string
+          custom_page?: boolean
           description?: string
+          details?: string[]
+          gallery?: string[]
           id?: string
           image_url?: string
           low_stock_threshold?: number
           name: string
           price_cents?: number
+          scenes?: string[]
           series?: string
           slug: string
           stock?: number
@@ -134,14 +144,19 @@ export type Database = {
         }
         Update: {
           active?: boolean
+          bundles?: Json
           category?: string
           created_at?: string
+          custom_page?: boolean
           description?: string
+          details?: string[]
+          gallery?: string[]
           id?: string
           image_url?: string
           low_stock_threshold?: number
           name?: string
           price_cents?: number
+          scenes?: string[]
           series?: string
           slug?: string
           stock?: number
