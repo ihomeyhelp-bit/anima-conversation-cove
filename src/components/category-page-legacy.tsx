@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { StoreHeader, StoreFooter } from "@/components/store-header";
 import { categories, categoryImages, lockProducts, type Category, type CategoryProduct } from "@/lib/categories";
 import robotVacuumsBanner from "@/assets/categories/robot-vacuums-banner.jpg.asset.json";
-import smartLocksBanner from "@/assets/categories/smart-locks-banner.png.asset.json";
+import smartLocksBanner from "@/assets/categories/smart-locks-banner-v2.png.asset.json";
 
 import { productSlug } from "@/lib/products";
 
