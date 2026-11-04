@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { StoreHeader, StoreFooter } from "@/components/store-header";
 import { categories, categoryImages, lockProducts, type Category, type CategoryProduct } from "@/lib/categories";
 import robotVacuumsBanner from "@/assets/categories/robot-vacuums-banner.jpg.asset.json";
+import smartLocksBanner from "@/assets/categories/smart-locks-banner.png.asset.json";
 
 import { productSlug } from "@/lib/products";
 
 // User-supplied hero banners replacing the catalogue default per category.
-const heroOverrides: Record<string, string> = { "robot-vacuums": robotVacuumsBanner.url };
+const heroOverrides: Record<string, string> = { "robot-vacuums": robotVacuumsBanner.url, "smart-locks": smartLocksBanner.url };
 
 const series = ["S Series", "E Series", "C Series"];
 function jump(id: string) { document.getElementById(id)?.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block:"start"}); }
