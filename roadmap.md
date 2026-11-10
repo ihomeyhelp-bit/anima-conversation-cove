@@ -38,3 +38,8 @@
 # Admin
 - [x] Admin interface: products, stock, orders, administrators.
 - [ ] Online payment checkout (needs user confirmation of payment provider).
+
+# IHOMEY Pro app & dashboard
+- [ ] Client mobile app at /app (splash, home with house picker/tabs/status/quick actions, scanner, signup region→email→OTP→password, sign-in, Discover + cloud plans + AI advisor, events history).
+- [ ] Operational dashboard (pill topbar, rail, Cmd+K, KPI pastel cards, 7-day chart, heatmap, agenda, locks grid, payment links & withdrawals, pricing calculator, AI ops assistant).
+- [ ] Inter typography and IHOMEY Pro colours for app and dashboard only.
